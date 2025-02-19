@@ -1,85 +1,128 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div id='morphDiv'>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div id='leftFoot' class='foot'>
+      <div id='leftFootToes' class='toe'></div>
+      <div class='innerFootSpacer'></div>
+      <div id='leftFootHeel' class='heel'></div>
     </div>
-  </header>
 
-  <RouterView />
+    <div id='rightFoot' class='foot'>
+      <div id='rightFootToes' class='toe'></div>
+      <div class='innerFootSpacer'></div>
+      <div id='rightFootHeel' class='heel'></div>
+    </div>
+
+  </div>
+
+  <div id='controls'>
+    <button id='backButton' @click='BackBtn' :disabled='BackBtnDisabled'>Back</button>
+    <div id='controlsSpacer'></div>
+    <button id='nextButton' @click='NextBtn' :disabled='NextBtnDisabled'>Next</button>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<script setup>
+import { ref, computed, onMounted } from 'vue';
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+const stepCounter = ref(0);
+const footHeightDifferenz = 55;
+const footWidthDifferenz = 25;
+let leftFoot;
+let rightFoot;
 
-nav {
+let steps = [
+  { leftHeight: 0.5, leftWidth: 0.45, leftRotate: 90, rightHeight: 0.2, rightWidth: 0.55, rightRotate: 90 },
+  { leftHeight: 0.2, leftWidth: 0.55, leftRotate: -150, rightHeight: 0.25, rightWidth: 0.65, rightRotate: 150 },
+  { leftHeight: 0.3, leftWidth: 0.35, leftRotate: 50, rightHeight: 0.3, rightWidth: 0.45, rightRotate: 190 }
+];
+
+onMounted(() => {
+  leftFoot = document.getElementById('leftFoot');
+  rightFoot = document.getElementById('rightFoot');
+  updateFeet(steps[stepCounter.value]);
+
+  window.addEventListener('resize', () => updateFeet(steps[stepCounter.value]));
+});
+
+const updateFeet = (step) => {
+  let screenWidth = document.getElementById('morphDiv').offsetWidth;
+  let screenHeight = document.getElementById('morphDiv').offsetHeight;
+
+  leftFoot.style.top = ((screenHeight * step.leftHeight - footHeightDifferenz) + 'px');
+  leftFoot.style.left = ((screenWidth * step.leftWidth - footWidthDifferenz) + 'px');
+  leftFoot.style.transform = `rotate(${step.leftRotate}deg)`;
+
+  rightFoot.style.top = ((screenHeight * step.rightHeight - footHeightDifferenz) + 'px');
+  rightFoot.style.left = ((screenWidth * step.rightWidth - footWidthDifferenz) + 'px');
+  rightFoot.style.transform = `rotate(${step.rightRotate}deg)`;
+};
+
+const BackBtn = () => {
+  if (stepCounter.value > 0) {
+    stepCounter.value--;
+    updateFeet(steps[stepCounter.value]);
+  }
+};
+
+const NextBtn = () => {
+  if (stepCounter.value < steps.length - 1) {
+    stepCounter.value++;
+    updateFeet(steps[stepCounter.value]);
+  }
+};
+
+const NextBtnDisabled = computed(() => stepCounter.value >= steps.length - 1);
+const BackBtnDisabled = computed(() => stepCounter.value <= 0);
+</script>
+
+<style scoped lang='scss'>
+#morphDiv {
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+  height: 90vh;
+  background-color: #eee;
+  display: flex;
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  #leftFoot, #rightFoot {
+    position: absolute;
+    transition: top 2s ease, left 2s ease, transform 2s ease; /* Transition für rotation hinzufügen */
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .innerFootSpacer {
+    height: 10px;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .toe, .heel {
+    background-color: lightblue;
+    width: 50px;
   }
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
+  .toe {
+    border-radius: 2rem 2rem 0 0;
+    height: 60px;
+  }
 
-    padding: 1rem 0;
-    margin-top: 1rem;
+  .heel {
+    border-radius: 0 0 1rem 1rem;
+    height: 40px;
+  }
+}
+
+#controls {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+
+  #controlsSpacer {
+    width: 50px;
+  }
+
+  #backButton, #nextButton {
+    width: 10rem;
+    height: 2.5rem;
+    background-color: lightblue;
+    border: none;
+    cursor: pointer;
   }
 }
 </style>
