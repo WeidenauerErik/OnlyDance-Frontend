@@ -1,15 +1,15 @@
 <template>
   <div id="morphDiv">
     <div id="manLeftFoot" class="foot">
-      <div id="manLeftFootToes" class="menToe"></div>
+      <div id="manLeftFootToes" class="manToe"></div>
       <div class="innerFootSpacer"></div>
-      <div id="manLeftFootHeel" class="menHeel"></div>
+      <div id="manLeftFootHeel" class="manHeel"></div>
     </div>
 
     <div id="manRightFoot" class="foot">
-      <div id="manRightFootToes" class="menToe"></div>
+      <div id="manRightFootToes" class="manToe"></div>
       <div class="innerFootSpacer"></div>
-      <div id="manRightFootHeel" class="menHeel"></div>
+      <div id="manRightFootHeel" class="manHeel"></div>
     </div>
 
     <div id="womanLeftFoot" class="foot">
@@ -35,21 +35,27 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-const stepCounter = ref(0);
+const stepCounter = ref();
+
 const footHeightDifferenz = 55;
 const footWidthDifferenz = 25;
-let manLeftFoot;
-let manLeftFootHeel;
-let manLeftFootToes;
-let manRightFoot;
-let manRightFootToes;
-let manRightFootHeel;
-let womanLeftFoot;
-let womanLeftFootHeel;
-let womanLeftFootToes;
-let womanRightFoot;
-let womanRightFootToes;
-let womanRightFootHeel;
+
+let screenWidth
+let screenHeight
+
+let manLeftFoot
+let manLeftFootHeel
+let manLeftFootToes
+let manRightFoot
+let manRightFootToes
+let manRightFootHeel
+
+let womanLeftFoot
+let womanLeftFootHeel
+let womanLeftFootToes
+let womanRightFoot
+let womanRightFootToes
+let womanRightFootHeel
 
 let steps = [
   {
@@ -157,12 +163,14 @@ let steps = [
 ]
 
 onMounted(() => {
-  manLeftFoot = document.getElementById('manLeftFoot')
+  stepCounter.value = 0;
+  manLeftFoot = document.getElementById("manLeftFoot")
   manLeftFootToes = document.getElementById('manLeftFootToes')
   manLeftFootHeel = document.getElementById('manLeftFootHeel')
   manRightFoot = document.getElementById('manRightFoot')
   manRightFootToes = document.getElementById('manRightFootToes')
   manRightFootHeel = document.getElementById('manRightFootHeel')
+
   womanLeftFoot = document.getElementById('womanLeftFoot')
   womanLeftFootToes = document.getElementById('womanLeftFootToes')
   womanLeftFootHeel = document.getElementById('womanLeftFootHeel')
@@ -170,15 +178,12 @@ onMounted(() => {
   womanRightFootToes = document.getElementById('womanRightFootToes')
   womanRightFootHeel = document.getElementById('womanRightFootHeel')
 
-  updateFeet(steps[stepCounter.value])
+  resize()
 
-  window.addEventListener('resize', () => updateFeet(steps[stepCounter.value]))
+  window.addEventListener('resize', () => resize())
 })
 
 const updateFeet = (step) => {
-  let screenWidth = document.getElementById('morphDiv').offsetWidth
-  let screenHeight = document.getElementById('morphDiv').offsetHeight
-
   manLeftFoot.style.top = screenHeight * step.man.leftFoot.height - footHeightDifferenz + 'px'
   manLeftFoot.style.left = screenWidth * step.man.leftFoot.width - footWidthDifferenz + 'px'
   manLeftFoot.style.transform = `rotate(${step.man.leftFoot.rotate}deg)`
@@ -200,6 +205,13 @@ const updateFeet = (step) => {
   womanRightFoot.style.transform = `rotate(${step.woman.rightFoot.rotate}deg)`
   womanRightFootToes.style.backgroundColor = step.woman.rightFoot.footToesActive ? 'red' : '#FFCCCB'
   womanRightFootHeel.style.backgroundColor = step.woman.rightFoot.footHeelActive ? 'red' : '#FFCCCB'
+}
+
+const resize = () => {
+  screenWidth = document.getElementById('morphDiv').offsetWidth
+  screenHeight = document.getElementById('morphDiv').offsetHeight
+
+  updateFeet(steps[stepCounter.value])
 }
 
 const BackBtn = () => {
@@ -243,23 +255,18 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
   }
 
   .womanToe,
-  .womanHeel {
-    background-color: red;
+  .womanHeel,
+  .manToe,
+  .manHeel{
     width: 50px;
   }
 
-  .menToe,
-  .womanHeel {
-    background-color: blue;
-    width: 50px;
-  }
-
-  .womanToe, .menToe {
+  .womanToe, .manToe {
     border-radius: 2rem 2rem 0 0;
     height: 60px;
   }
 
-  .womanHeel, .menHeel {
+  .womanHeel, .manHeel {
     border-radius: 0 0 1rem 1rem;
     height: 40px;
   }
