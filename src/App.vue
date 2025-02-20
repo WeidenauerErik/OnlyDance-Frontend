@@ -54,13 +54,35 @@
   </div>
 
   <div id="controls">
-    <div class="controlsElement"><span> {{ danceStepCounter }} / {{ danceStepLength }}</span></div>
+    <div class="controlsElement">
+      <span> {{ danceStepCounter }} / {{ danceStepLength }}</span>
+    </div>
     <div class="controlsSpacer"></div>
-    <button id="backButton" class="controlsElement" @click="BackBtn" :disabled="BackBtnDisabled">Back</button>
+    <button id="backButton" class="controlsElement" @click="BackBtn" :disabled="BackBtnDisabled">
+      Back
+    </button>
     <div class="controlsSpacer"></div>
-    <button id="nextButton" class="controlsElement" @click="NextBtn" :disabled="NextBtnDisabled">Next</button>
+    <button id="nextButton" class="controlsElement" @click="NextBtn" :disabled="NextBtnDisabled">
+      Next
+    </button>
     <div class="controlsSpacer"></div>
-    <button id="nextButton" class="controlsElement" @click="BackToBegin" :disabled="BackToBeginBtnDisabled">Retry</button>
+    <button
+      id="nextButton"
+      class="controlsElement"
+      @click="BackToBeginBtn"
+      :disabled="BackToBeginBtnDisabled"
+    >
+      Retry
+    </button>
+    <div class="controlsSpacer"></div>
+    <button
+      id="autoplayButton"
+      class="controlsElement"
+      @click="AutoplayBtn"
+      :disabled="AutoplayBtnDisabled"
+    >
+      Autoplay
+    </button>
   </div>
 </template>
 
@@ -102,7 +124,7 @@ let womanRightFootLetter
 let steps = {}
 
 onMounted(() => {
-  fetch('http://localhost:3000/')
+  fetch('https://onlydance.onrender.com/')
     .then((res) => res.json())
     .then((data) => (steps = data))
     .then(() => {
@@ -190,13 +212,25 @@ const NextBtn = () => {
   }
 }
 
-const BackToBegin = () => {
+const BackToBeginBtn = () => {
   stepCounter.value = 0
   danceStepCounter.value = 1
   updateFeet(steps[stepCounter.value])
 }
 
+const AutoplayBtn = async () => {
+  if (stepCounter.value < steps.length - 1) {
+    for (let i = stepCounter.value; i < steps.length - 1; i++) {
+      stepCounter.value++
+      danceStepCounter.value++
+      updateFeet(steps[stepCounter.value])
+      await new Promise(resolve => setTimeout(resolve, steps[stepCounter.value].howQuick * 500));
+    }
+  }
+}
+
 const NextBtnDisabled = computed(() => stepCounter.value >= steps.length - 1)
+const AutoplayBtnDisabled = computed(() => stepCounter.value >= steps.length - 1)
 const BackBtnDisabled = computed(() => stepCounter.value <= 0)
 const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0)
 </script>
