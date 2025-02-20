@@ -1,27 +1,47 @@
 <template>
   <div id="morphDiv">
-    <div id="manLeftFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
-      <div id="manLeftFootToes" class="manToe"></div>
+    <div
+      id="manLeftFoot"
+      class="foot"
+      :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
+    >
+      <div id="manLeftFootToes" class="manToe"><span id="manLeftFootLetter" class="footLetter">L</span></div>
       <div class="innerFootSpacer"></div>
       <div id="manLeftFootHeel" class="manHeel"></div>
     </div>
 
-    <div id="manRightFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
-      <div id="manRightFootToes" class="manToe"></div>
+    <div
+      id="manRightFoot"
+      class="foot"
+      :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
+    >
+      <div id="manRightFootToes" class="manToe"><span id="manRightFootLetter" class="footLetter">R</span></div>
       <div class="innerFootSpacer"></div>
       <div id="manRightFootHeel" class="manHeel"></div>
     </div>
 
-    <div id="womanLeftFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
-      <div id="womanLeftFootToes" class="womanToe"></div>
+    <div
+      id="womanLeftFoot"
+      class="foot"
+      :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
+    >
+      <div id="womanLeftFootToes" class="womanToe"><span id="womanLeftFootLetter" class="footLetter">L</span></div>
       <div class="innerFootSpacer"></div>
-      <div id="womanLeftFootHeel" class="womanHeel"></div>
+      <div class="womanHeelContainer">
+        <div id="womanLeftFootHeel" class="womanHeel"></div>
+      </div>
     </div>
 
-    <div id="womanRightFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
-      <div id="womanRightFootToes" class="womanToe"></div>
+    <div
+      id="womanRightFoot"
+      class="foot"
+      :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
+    >
+      <div id="womanRightFootToes" class="womanToe"><span id="womanRightFootLetter" class="footLetter">R</span></div>
       <div class="innerFootSpacer"></div>
-      <div id="womanRightFootHeel" class="womanHeel"></div>
+      <div class="womanHeelContainer">
+        <div id="womanRightFootHeel" class="womanHeel"></div>
+      </div>
     </div>
   </div>
 
@@ -48,16 +68,23 @@ let howQuick = ref(2)
 let manLeftFoot
 let manLeftFootHeel
 let manLeftFootToes
+let manLeftFootLetter
+
 let manRightFoot
 let manRightFootToes
 let manRightFootHeel
+let manRightFootLetter
+
 
 let womanLeftFoot
 let womanLeftFootHeel
 let womanLeftFootToes
+let womanLeftFootLetter
+
 let womanRightFoot
 let womanRightFootToes
 let womanRightFootHeel
+let womanRightFootLetter
 
 let steps = [
   {
@@ -67,8 +94,8 @@ let steps = [
         height: 0.1,
         width: 0.6,
         rotate: 180,
-        footToesActive: true,
-        footHeelActive: false,
+        footToesActive: false,
+        footHeelActive: true,
       },
       rightFoot: {
         height: 0.1,
@@ -199,7 +226,7 @@ let steps = [
         footHeelActive: false,
       },
     },
-  }
+  },
 ]
 
 onMounted(() => {
@@ -207,16 +234,23 @@ onMounted(() => {
   manLeftFoot = document.getElementById('manLeftFoot')
   manLeftFootToes = document.getElementById('manLeftFootToes')
   manLeftFootHeel = document.getElementById('manLeftFootHeel')
+  manLeftFootLetter = document.getElementById('manLeftFootLetter')
+
   manRightFoot = document.getElementById('manRightFoot')
   manRightFootToes = document.getElementById('manRightFootToes')
   manRightFootHeel = document.getElementById('manRightFootHeel')
+  manRightFootLetter = document.getElementById('manRightFootLetter')
+
 
   womanLeftFoot = document.getElementById('womanLeftFoot')
   womanLeftFootToes = document.getElementById('womanLeftFootToes')
   womanLeftFootHeel = document.getElementById('womanLeftFootHeel')
+  womanLeftFootLetter = document.getElementById('womanLeftFootLetter')
+
   womanRightFoot = document.getElementById('womanRightFoot')
   womanRightFootToes = document.getElementById('womanRightFootToes')
   womanRightFootHeel = document.getElementById('womanRightFootHeel')
+  womanRightFootLetter = document.getElementById('womanRightFootLetter')
 
   resize()
 
@@ -231,22 +265,29 @@ const updateFeet = (step) => {
   manLeftFoot.style.transform = `rotate(${step.man.leftFoot.rotate}deg)`
   manLeftFootToes.style.backgroundColor = step.man.leftFoot.footToesActive ? 'blue' : 'lightblue'
   manLeftFootHeel.style.backgroundColor = step.man.leftFoot.footHeelActive ? 'blue' : 'lightblue'
+  manLeftFootLetter.style.color = step.man.leftFoot.footToesActive ? 'white' : 'black'
+
   manRightFoot.style.top = screenHeight * step.man.rightFoot.height - footHeightDifferenz + 'px'
   manRightFoot.style.left = screenWidth * step.man.rightFoot.width - footWidthDifferenz + 'px'
   manRightFoot.style.transform = `rotate(${step.man.rightFoot.rotate}deg)`
   manRightFootToes.style.backgroundColor = step.man.rightFoot.footToesActive ? 'blue' : 'lightblue'
   manRightFootHeel.style.backgroundColor = step.man.rightFoot.footHeelActive ? 'blue' : 'lightblue'
+  manRightFootLetter.style.color = step.man.rightFoot.footToesActive ? 'white' : 'black'
+
 
   womanLeftFoot.style.top = screenHeight * step.woman.leftFoot.height - footHeightDifferenz + 'px'
   womanLeftFoot.style.left = screenWidth * step.woman.leftFoot.width - footWidthDifferenz + 'px'
   womanLeftFoot.style.transform = `rotate(${step.woman.leftFoot.rotate}deg)`
   womanLeftFootToes.style.backgroundColor = step.woman.leftFoot.footToesActive ? 'red' : '#FFCCCB'
   womanLeftFootHeel.style.backgroundColor = step.woman.leftFoot.footHeelActive ? 'red' : '#FFCCCB'
+  womanLeftFootLetter.style.color = step.woman.leftFoot.footToesActive ? 'white' : 'black'
+
   womanRightFoot.style.top = screenHeight * step.woman.rightFoot.height - footHeightDifferenz + 'px'
   womanRightFoot.style.left = screenWidth * step.woman.rightFoot.width - footWidthDifferenz + 'px'
   womanRightFoot.style.transform = `rotate(${step.woman.rightFoot.rotate}deg)`
   womanRightFootToes.style.backgroundColor = step.woman.rightFoot.footToesActive ? 'red' : '#FFCCCB'
   womanRightFootHeel.style.backgroundColor = step.woman.rightFoot.footHeelActive ? 'red' : '#FFCCCB'
+  womanRightFootLetter.style.color = step.woman.rightFoot.footToesActive ? 'white' : 'black'
 }
 
 const resize = () => {
@@ -286,6 +327,12 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
   #womanLeftFoot,
   #womanRightFoot {
     position: absolute;
+
+    .footLetter {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
   }
 
   .quickMovement {
@@ -302,27 +349,53 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
       transform 4s ease;
   }
 
-  .innerFootSpacer {
-    height: 10px;
+  #manLeftFoot, #manRightFoot {
+    .innerFootSpacer {
+      height: 10px;
+    }
   }
 
-  .womanToe,
-  .womanHeel,
+  #womanLeftFoot, #womanRightFoot {
+    .innerFootSpacer {
+      height: 30px;
+    }
+  }
+
   .manToe,
   .manHeel {
     width: 50px;
   }
 
+  .womanToe {
+    width: 30px;
+  }
+
   .womanToe,
   .manToe {
     border-radius: 2rem 2rem 0 0;
+  }
+
+  .manToe {
     height: 60px;
   }
 
-  .womanHeel,
+  .womanToe {
+    height: 40px;
+  }
+
   .manHeel {
     border-radius: 0 0 1rem 1rem;
     height: 40px;
+  }
+  .womanHeelContainer {
+    display: flex;
+    justify-content: center;
+
+    .womanHeel {
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+    }
   }
 }
 
