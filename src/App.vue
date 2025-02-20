@@ -5,7 +5,9 @@
       class="foot"
       :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
     >
-      <div id="manLeftFootToes" class="manToe"><span id="manLeftFootLetter" class="footLetter">L</span></div>
+      <div id="manLeftFootToes" class="manToe">
+        <span id="manLeftFootLetter" class="footLetter">L</span>
+      </div>
       <div class="innerFootSpacer"></div>
       <div id="manLeftFootHeel" class="manHeel"></div>
     </div>
@@ -15,7 +17,9 @@
       class="foot"
       :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
     >
-      <div id="manRightFootToes" class="manToe"><span id="manRightFootLetter" class="footLetter">R</span></div>
+      <div id="manRightFootToes" class="manToe">
+        <span id="manRightFootLetter" class="footLetter">R</span>
+      </div>
       <div class="innerFootSpacer"></div>
       <div id="manRightFootHeel" class="manHeel"></div>
     </div>
@@ -25,7 +29,9 @@
       class="foot"
       :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
     >
-      <div id="womanLeftFootToes" class="womanToe"><span id="womanLeftFootLetter" class="footLetter">L</span></div>
+      <div id="womanLeftFootToes" class="womanToe">
+        <span id="womanLeftFootLetter" class="footLetter">L</span>
+      </div>
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
         <div id="womanLeftFootHeel" class="womanHeel"></div>
@@ -37,7 +43,9 @@
       class="foot"
       :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
     >
-      <div id="womanRightFootToes" class="womanToe"><span id="womanRightFootLetter" class="footLetter">R</span></div>
+      <div id="womanRightFootToes" class="womanToe">
+        <span id="womanRightFootLetter" class="footLetter">R</span>
+      </div>
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
         <div id="womanRightFootHeel" class="womanHeel"></div>
@@ -46,9 +54,13 @@
   </div>
 
   <div id="controls">
-    <button id="backButton" @click="BackBtn" :disabled="BackBtnDisabled">Back</button>
-    <div id="controlsSpacer"></div>
-    <button id="nextButton" @click="NextBtn" :disabled="NextBtnDisabled">Next</button>
+    <div class="controlsElement"><span> {{ danceStepCounter }} / {{ danceStepLength }}</span></div>
+    <div class="controlsSpacer"></div>
+    <button id="backButton" class="controlsElement" @click="BackBtn" :disabled="BackBtnDisabled">Back</button>
+    <div class="controlsSpacer"></div>
+    <button id="nextButton" class="controlsElement" @click="NextBtn" :disabled="NextBtnDisabled">Next</button>
+    <div class="controlsSpacer"></div>
+    <button id="nextButton" class="controlsElement" @click="BackToBegin" :disabled="BackToBeginBtnDisabled">Retry</button>
   </div>
 </template>
 
@@ -56,6 +68,8 @@
 import { ref, computed, onMounted } from 'vue'
 
 const stepCounter = ref()
+let danceStepCounter = ref(1)
+let danceStepLength
 
 const footHeightDifferenz = 55
 const footWidthDifferenz = 25
@@ -75,7 +89,6 @@ let manRightFootToes
 let manRightFootHeel
 let manRightFootLetter
 
-
 let womanLeftFoot
 let womanLeftFootHeel
 let womanLeftFootToes
@@ -86,175 +99,40 @@ let womanRightFootToes
 let womanRightFootHeel
 let womanRightFootLetter
 
-let steps = [
-  {
-    howQuick: 1,
-    woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
-  {
-    howQuick: 1,
-    woman: {
-      leftFoot: {
-        height: 0.2,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.9,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.2,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.2,
-        width: 0.45,
-        rotate: 270,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.9,
-        width: 0.45,
-        rotate: -90,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.9,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.2,
-        width: 0.3,
-        rotate: 180,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.2,
-        width: 0.15,
-        rotate: 270,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.9,
-        width: 0.15,
-        rotate: -90,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.9,
-        width: 0.3,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
-]
+let steps = {}
 
 onMounted(() => {
-  stepCounter.value = 0
-  manLeftFoot = document.getElementById('manLeftFoot')
-  manLeftFootToes = document.getElementById('manLeftFootToes')
-  manLeftFootHeel = document.getElementById('manLeftFootHeel')
-  manLeftFootLetter = document.getElementById('manLeftFootLetter')
+  fetch('http://localhost:3000/')
+    .then((res) => res.json())
+    .then((data) => (steps = data))
+    .then(() => {
+      danceStepLength = steps.length
+      stepCounter.value = 0
 
-  manRightFoot = document.getElementById('manRightFoot')
-  manRightFootToes = document.getElementById('manRightFootToes')
-  manRightFootHeel = document.getElementById('manRightFootHeel')
-  manRightFootLetter = document.getElementById('manRightFootLetter')
+      manLeftFoot = document.getElementById('manLeftFoot')
+      manLeftFootToes = document.getElementById('manLeftFootToes')
+      manLeftFootHeel = document.getElementById('manLeftFootHeel')
+      manLeftFootLetter = document.getElementById('manLeftFootLetter')
 
+      manRightFoot = document.getElementById('manRightFoot')
+      manRightFootToes = document.getElementById('manRightFootToes')
+      manRightFootHeel = document.getElementById('manRightFootHeel')
+      manRightFootLetter = document.getElementById('manRightFootLetter')
 
-  womanLeftFoot = document.getElementById('womanLeftFoot')
-  womanLeftFootToes = document.getElementById('womanLeftFootToes')
-  womanLeftFootHeel = document.getElementById('womanLeftFootHeel')
-  womanLeftFootLetter = document.getElementById('womanLeftFootLetter')
+      womanLeftFoot = document.getElementById('womanLeftFoot')
+      womanLeftFootToes = document.getElementById('womanLeftFootToes')
+      womanLeftFootHeel = document.getElementById('womanLeftFootHeel')
+      womanLeftFootLetter = document.getElementById('womanLeftFootLetter')
 
-  womanRightFoot = document.getElementById('womanRightFoot')
-  womanRightFootToes = document.getElementById('womanRightFootToes')
-  womanRightFootHeel = document.getElementById('womanRightFootHeel')
-  womanRightFootLetter = document.getElementById('womanRightFootLetter')
+      womanRightFoot = document.getElementById('womanRightFoot')
+      womanRightFootToes = document.getElementById('womanRightFootToes')
+      womanRightFootHeel = document.getElementById('womanRightFootHeel')
+      womanRightFootLetter = document.getElementById('womanRightFootLetter')
 
-  resize()
+      resize()
 
-  window.addEventListener('resize', () => resize())
+      window.addEventListener('resize', () => resize())
+    })
 })
 
 const updateFeet = (step) => {
@@ -273,7 +151,6 @@ const updateFeet = (step) => {
   manRightFootToes.style.backgroundColor = step.man.rightFoot.footToesActive ? 'blue' : 'lightblue'
   manRightFootHeel.style.backgroundColor = step.man.rightFoot.footHeelActive ? 'blue' : 'lightblue'
   manRightFootLetter.style.color = step.man.rightFoot.footToesActive ? 'white' : 'black'
-
 
   womanLeftFoot.style.top = screenHeight * step.woman.leftFoot.height - footHeightDifferenz + 'px'
   womanLeftFoot.style.left = screenWidth * step.woman.leftFoot.width - footWidthDifferenz + 'px'
@@ -300,6 +177,7 @@ const resize = () => {
 const BackBtn = () => {
   if (stepCounter.value > 0) {
     stepCounter.value--
+    danceStepCounter.value--
     updateFeet(steps[stepCounter.value])
   }
 }
@@ -307,12 +185,20 @@ const BackBtn = () => {
 const NextBtn = () => {
   if (stepCounter.value < steps.length - 1) {
     stepCounter.value++
+    danceStepCounter.value++
     updateFeet(steps[stepCounter.value])
   }
 }
 
+const BackToBegin = () => {
+  stepCounter.value = 0
+  danceStepCounter.value = 1
+  updateFeet(steps[stepCounter.value])
+}
+
 const NextBtnDisabled = computed(() => stepCounter.value >= steps.length - 1)
 const BackBtnDisabled = computed(() => stepCounter.value <= 0)
+const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0)
 </script>
 
 <style scoped lang="scss">
@@ -349,13 +235,15 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
       transform 4s ease;
   }
 
-  #manLeftFoot, #manRightFoot {
+  #manLeftFoot,
+  #manRightFoot {
     .innerFootSpacer {
       height: 10px;
     }
   }
 
-  #womanLeftFoot, #womanRightFoot {
+  #womanLeftFoot,
+  #womanRightFoot {
     .innerFootSpacer {
       height: 30px;
     }
@@ -387,6 +275,7 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
     border-radius: 0 0 1rem 1rem;
     height: 40px;
   }
+
   .womanHeelContainer {
     display: flex;
     justify-content: center;
@@ -404,12 +293,14 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
   display: flex;
   justify-content: center;
 
-  #controlsSpacer {
+  .controlsSpacer {
     width: 50px;
   }
 
-  #backButton,
-  #nextButton {
+  .controlsElement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 10rem;
     height: 2.5rem;
     background-color: lightblue;
