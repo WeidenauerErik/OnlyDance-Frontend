@@ -1,24 +1,24 @@
 <template>
   <div id="morphDiv">
-    <div id="manLeftFoot" class="foot">
+    <div id="manLeftFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
       <div id="manLeftFootToes" class="manToe"></div>
       <div class="innerFootSpacer"></div>
       <div id="manLeftFootHeel" class="manHeel"></div>
     </div>
 
-    <div id="manRightFoot" class="foot">
+    <div id="manRightFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
       <div id="manRightFootToes" class="manToe"></div>
       <div class="innerFootSpacer"></div>
       <div id="manRightFootHeel" class="manHeel"></div>
     </div>
 
-    <div id="womanLeftFoot" class="foot">
+    <div id="womanLeftFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
       <div id="womanLeftFootToes" class="womanToe"></div>
       <div class="innerFootSpacer"></div>
       <div id="womanLeftFootHeel" class="womanHeel"></div>
     </div>
 
-    <div id="womanRightFoot" class="foot">
+    <div id="womanRightFoot" class="foot" :class="{quickMovement: howQuick === 2, slowMovement: howQuick === 1}">
       <div id="womanRightFootToes" class="womanToe"></div>
       <div class="innerFootSpacer"></div>
       <div id="womanRightFootHeel" class="womanHeel"></div>
@@ -35,13 +35,15 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-const stepCounter = ref();
+const stepCounter = ref()
 
-const footHeightDifferenz = 55;
-const footWidthDifferenz = 25;
+const footHeightDifferenz = 55
+const footWidthDifferenz = 25
 
 let screenWidth
 let screenHeight
+
+let howQuick = ref(2)
 
 let manLeftFoot
 let manLeftFootHeel
@@ -59,6 +61,7 @@ let womanRightFootHeel
 
 let steps = [
   {
+    howQuick: 1,
     woman: {
       leftFoot: {
         height: 0.1,
@@ -93,6 +96,7 @@ let steps = [
     },
   },
   {
+    howQuick: 1,
     woman: {
       leftFoot: {
         height: 0.2,
@@ -127,6 +131,7 @@ let steps = [
     },
   },
   {
+    howQuick: 2,
     woman: {
       leftFoot: {
         height: 0.2,
@@ -160,11 +165,46 @@ let steps = [
       },
     },
   },
+  {
+    howQuick: 2,
+    woman: {
+      leftFoot: {
+        height: 0.2,
+        width: 0.3,
+        rotate: 180,
+        footToesActive: true,
+        footHeelActive: false,
+      },
+      rightFoot: {
+        height: 0.2,
+        width: 0.15,
+        rotate: 270,
+        footToesActive: false,
+        footHeelActive: false,
+      },
+    },
+    man: {
+      leftFoot: {
+        height: 0.9,
+        width: 0.15,
+        rotate: -90,
+        footToesActive: true,
+        footHeelActive: false,
+      },
+      rightFoot: {
+        height: 0.9,
+        width: 0.3,
+        rotate: 0,
+        footToesActive: false,
+        footHeelActive: false,
+      },
+    },
+  }
 ]
 
 onMounted(() => {
-  stepCounter.value = 0;
-  manLeftFoot = document.getElementById("manLeftFoot")
+  stepCounter.value = 0
+  manLeftFoot = document.getElementById('manLeftFoot')
   manLeftFootToes = document.getElementById('manLeftFootToes')
   manLeftFootHeel = document.getElementById('manLeftFootHeel')
   manRightFoot = document.getElementById('manRightFoot')
@@ -184,6 +224,8 @@ onMounted(() => {
 })
 
 const updateFeet = (step) => {
+  howQuick = ref(step.howQuick)
+
   manLeftFoot.style.top = screenHeight * step.man.leftFoot.height - footHeightDifferenz + 'px'
   manLeftFoot.style.left = screenWidth * step.man.leftFoot.width - footWidthDifferenz + 'px'
   manLeftFoot.style.transform = `rotate(${step.man.leftFoot.rotate}deg)`
@@ -242,12 +284,22 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
   #manLeftFoot,
   #manRightFoot,
   #womanLeftFoot,
-  #womanRightFoot{
+  #womanRightFoot {
     position: absolute;
+  }
+
+  .quickMovement {
     transition:
-      top 2s ease,
-      left 2s ease,
-      transform 2s ease;
+      top 0.5s ease,
+      left 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .slowMovement {
+    transition:
+      top 4s ease,
+      left 4s ease,
+      transform 4s ease;
   }
 
   .innerFootSpacer {
@@ -257,16 +309,18 @@ const BackBtnDisabled = computed(() => stepCounter.value <= 0)
   .womanToe,
   .womanHeel,
   .manToe,
-  .manHeel{
+  .manHeel {
     width: 50px;
   }
 
-  .womanToe, .manToe {
+  .womanToe,
+  .manToe {
     border-radius: 2rem 2rem 0 0;
     height: 60px;
   }
 
-  .womanHeel, .manHeel {
+  .womanHeel,
+  .manHeel {
     border-radius: 0 0 1rem 1rem;
     height: 40px;
   }
