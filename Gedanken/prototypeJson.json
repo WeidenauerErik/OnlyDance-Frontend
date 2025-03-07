@@ -1,0 +1,63 @@
+{
+  "id": {
+    "name": "Walzer",
+    "difficulty": "4",
+    "defaultBPM": "60",
+    "howManyPeople": 2,
+    "music": "api-url",
+    "person1": {
+      "isMan": false,
+      "color": "red"
+    },
+    "person2": {
+      "isMan": true,
+      "color": "blue"
+    },
+    "steps": [
+      {
+        "howQuick": 2,
+        "voiceMessage": "url-voice",
+        "person1": {
+          "leftFoot": {
+            "height": 0.5,
+            "width": 0.6,
+            "rotate": 180,
+            "footToesActive": false,
+            "footHeelActive": true
+          },
+          "rightFoot": {
+            "height": 0.5,
+            "width": 0.45,
+            "rotate": 180,
+            "footToesActive": false,
+            "footHeelActive": false
+          }
+        },
+        "person2": {
+          "leftFoot": {
+            "height": 0.7,
+            "width": 0.45,
+            "rotate": 0,
+            "footToesActive": true,
+            "footHeelActive": true
+          },
+          "rightFoot": {
+            "height": 0.7,
+            "width": 0.6,
+            "rotate": 0,
+            "footToesActive": false,
+            "footHeelActive": false
+          }
+        },
+        "messages": [
+          {
+            "height": 0.7,
+            "width": 0.6,
+            "comment": "comment",
+            "type": "person1/person2/neutral"
+          }
+        ]
+      }
+    ]
+  }
+}
