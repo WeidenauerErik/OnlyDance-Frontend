@@ -3,7 +3,7 @@
 </script>
 
 <template>
-
+ImprintView
 </template>
 
 <style scoped>

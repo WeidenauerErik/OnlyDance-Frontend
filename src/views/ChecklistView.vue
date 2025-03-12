@@ -3,7 +3,7 @@
 </script>
 
 <template>
-
+ChecklistView
 </template>
 
 <style scoped>

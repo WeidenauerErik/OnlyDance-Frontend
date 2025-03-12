@@ -1,0 +1,17 @@
+$primary-color : #73168C;
+$secondary-color : #070926;
+$tertiary-color : #281259;
+$fourth-color : #9F2CBF;
+$fifth-color : #C04BF2;
+
+@import 'https://fonts.googleapis.com/css?family=Poppins';
+$standard-font : Poppins;
+
+* {
+  font-family: $standard-font,sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

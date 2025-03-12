@@ -3,7 +3,7 @@
 </script>
 
 <template>
-
+EventCalendarView
 </template>
 
 <style scoped>

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-
+SignUpLoginPageView
 </template>
 
 <style scoped>
