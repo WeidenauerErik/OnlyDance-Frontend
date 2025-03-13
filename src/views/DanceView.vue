@@ -217,10 +217,8 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 #morphDiv {
   width: 100%;
   height: 90vh;
-  background-color: #eee;
   display: flex;
   position: relative;
-  overflow: hidden;
 
   #manLeftFoot,
   #manRightFoot,
@@ -317,7 +315,8 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
     align-items: center;
     width: 10rem;
     height: 2.5rem;
-    background-color: lightblue;
+    background-color: $primary-color;
+    color: $basic-white;
     border: none;
     cursor: pointer;
   }

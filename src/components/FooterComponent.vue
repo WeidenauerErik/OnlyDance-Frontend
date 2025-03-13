@@ -6,40 +6,25 @@ import {RouterLink} from "vue-router";
 <template>
   <div id="footerContainer">
 
-   <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
-    <div id="visionContainer">
-      <span id="visionText">"Know what to dance!"</span>
-      - OnlyDance 2025
+    <div>
+      <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
     </div>
 
-    <nav id="linkContainer">
-      Quicklinks:
-      <ul>
-        <li>
-          <RouterLink to="/">LandingPage</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/Checklist">Checklist</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/MainPage">MainPage</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/EventCalendar">EventCalendar</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/Imprint">Imprint</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/SignUpLogin">SignUpLogin</RouterLink>
-        </li>
-      </ul>
-    </nav>
-    <div id="contactInfoContainer">
-      <span>Contact: </span>
-      <span>Andreas Juchelka</span>
-      <span>1132@htl.rennweg.at</span>
+    <div id="visionContainerFooter">
+      <span id="visionTextFooter">"Know what to dance!"</span>
+      <span>- OnlyDance 2025</span>
     </div>
+
+    <nav id="linksContainerFooter">
+      <span>Quicklinks:</span>
+      <RouterLink to="/" class="linksFooter">LandingPage</RouterLink>
+      <RouterLink to="/checklist" class="linksFooter">Checklist</RouterLink>
+      <RouterLink to="/mainpage" class="linksFooter">MainPage</RouterLink>
+      <RouterLink to="/events" class="linksFooter">EventCalendar</RouterLink>
+      <RouterLink to="/imprint" class="linksFooter">Imprint</RouterLink>
+      <RouterLink to="/signup" class="linksFooter">SignUp</RouterLink>
+      <RouterLink to="/login" class="linksFooter">Login</RouterLink>
+    </nav>
   </div>
 </template>
 
@@ -48,41 +33,42 @@ import {RouterLink} from "vue-router";
 
 #footerContainer {
   display: flex;
-  align-items: center;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  height: 35vh;
   background-color: $tertiary-color;
-  color: white;
+  color: $basic-white;
 
-  #linkContainer{
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
+  img {
+    width: 100px;
+    height: 100px;
   }
 
-
-  #logoNavBar {
-    width: 50px;
-  }
-
-  #visionContainer {
+  #visionContainerFooter {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
 
-    #visionText {
-      font-size: 40px;
+    #visionTextFooter {
+      font-size: 35px;
     }
   }
 
-  #contactInfoContainer {
+  #linksContainerFooter {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+    .linksFooter {
+      text-decoration: none;
+      color: $basic-white;
+    }
+
+    .linksFooter:hover {
+      text-decoration-line: underline;
+    }
   }
 }
-
 
 
 </style>

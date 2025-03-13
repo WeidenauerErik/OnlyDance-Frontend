@@ -7,10 +7,10 @@ const showMenu = ref(false);
 
 <template>
   <div id="containerNavBar">
-    <div id="logoContainerNavBar">
+    <RouterLink to="/" id="logoContainerNavBar">
       <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
       <h1 id="titleNavBar">OnlyDance</h1>
-    </div>
+    </RouterLink>
 
     <nav id="linksContainerNavBar">
       <div id="searchBarContainerNavBar">
@@ -20,16 +20,15 @@ const showMenu = ref(false);
         </button>
       </div>
 
-      <RouterLink to="/SignUpLogin" class="routerLinksNavBar" id="loginNavBar">Login</RouterLink>
-      <RouterLink to="/SignUpLogin" class="routerLinksNavBar" id="signUpNavBar">SignUp</RouterLink>
+      <RouterLink to="/login" class="routerLinksNavBar" id="loginNavBar">Login</RouterLink>
+      <RouterLink to="/signup" class="routerLinksNavBar" id="signUpNavBar">SignUp</RouterLink>
 
       <img src="../assets/menuIcon.png" id="menuIconNavBar" alt="Menu button" @click="showMenu = !showMenu">
 
       <div v-if="showMenu" id="menuDropdown">
-        <RouterLink to="/" class="routerLinksMenuNavBar">LandingPage</RouterLink>
-        <RouterLink to="/Checklist" class="routerLinksMenuNavBar">Checklist</RouterLink>
-        <RouterLink to="/MainPage" class="routerLinksMenuNavBar">MainPage</RouterLink>
-        <RouterLink to="/EventCalendar" class="routerLinksMenuNavBar">EventCalendar</RouterLink>
+        <RouterLink to="/checklist" class="routerLinksMenuNavBar">Checklist</RouterLink>
+        <RouterLink to="/mainpage" class="routerLinksMenuNavBar">MainPage</RouterLink>
+        <RouterLink to="/events" class="routerLinksMenuNavBar">EventCalendar</RouterLink>
       </div>
     </nav>
   </div>
@@ -42,12 +41,13 @@ const showMenu = ref(false);
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: $primary-color;
+  background-color: $tertiary-color;
 
   #logoContainerNavBar {
     display: flex;
     flex-direction: row;
     margin-left: 20px;
+    text-decoration: none;
 
     #logoNavBar {
       width: 50px;
@@ -88,7 +88,7 @@ const showMenu = ref(false);
       position: relative;
       display: flex;
       align-items: center;
-      width: 30vh;
+      width: 40vh;
 
       #searchBarInputNavBar {
         flex: 1;
@@ -135,11 +135,12 @@ const showMenu = ref(false);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
-      padding: 10px;
+      padding: 15px;
       gap: 10px;
 
       .routerLinksMenuNavBar {
         text-decoration: none;
+        color: $tertiary-color;
       }
     }
   }

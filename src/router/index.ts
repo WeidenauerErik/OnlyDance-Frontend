@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import MainPageView from '../views/MainPageView.vue'
-import SignUpLoginPageView from "../views/SignUpLoginPageView.vue";
+import SignUpView from "../views/SignUpView.vue";
 import LandingPageView from "../views/LandingPageView.vue";
 import EventCalendarView from "../views/EventCalendarView.vue";
 import ChecklistView from "../views/ChecklistView.vue";
 import DanceView from '../views/DanceView.vue';
 import Imprint from "../views/ImprintView.vue";
+import LoginView from "../views/LoginView.vue";
 
 
 
@@ -14,37 +15,42 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/MainPage',
+      path: '/mainpage',
       name: 'MainPage',
       component: MainPageView,
     },
     {
-      path: '/SignUpLogin',
-      name: 'SignUpLogin',
-      component: SignUpLoginPageView,
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUpView,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: LoginView
     },
     {
       path: '/',
-      name: 'LandingPage',
+      name: 'landingpage',
       component: LandingPageView
     },
     {
-      path: '/EventCalendar',
+      path: '/events',
       name: 'Eventcalendar',
       component: EventCalendarView
     },
     {
-      path: '/Checklist',
+      path: '/checklist',
       name: 'Checklist',
       component: ChecklistView
     },
     {
-      path: '/DanceView',
+      path: '/danceview',
       name: 'DanceView',
       component: DanceView
     },
     {
-      path: '/Imprint',
+      path: '/imprint',
       name: 'Imprint',
       component: Imprint
     }

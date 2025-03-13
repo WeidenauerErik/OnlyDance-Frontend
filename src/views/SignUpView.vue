@@ -1,9 +1,8 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
-SignUpLoginPageView
+  Sign Up View
 </template>
 
 <style scoped>
