@@ -10,7 +10,13 @@ import {RouterLink} from "vue-router";
     </div>
 
     <nav id="linksContainerNavBar">
-      <input type="text" id="searchBarNavBar">
+      <div id="searchBarContainerNavBar">
+        <input type="text" id="searchBarInputNavBar">
+        <button id="searchBarButtonNavBar">
+          <img src="../assets/searchIcon.png" alt="Search Icon">
+        </button>
+      </div>
+
       <RouterLink to="/SignUpLogin" class="routerLinksNavBar" id="loginNavBar">Login</RouterLink>
       <RouterLink to="/SignUpLogin" class="routerLinksNavBar" id="signUpNavBar">SignUp</RouterLink>
 
@@ -66,19 +72,69 @@ import {RouterLink} from "vue-router";
       margin-left: 20px;
     }
 
+    #searchBarContainerNavBar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 30vh;
+
+
+      #searchBarInputNavBar {
+        flex: 1;
+        border: none;
+        border-radius: 20px;
+        height: 5vh;
+        font-size: 15px;
+        padding-left: 10px;
+        color: var(--primary-color);
+        box-sizing: border-box;
+        padding-right: 40px;
+      }
+
+      #searchBarButtonNavBar {
+        position: absolute;
+        right: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    /*
     #searchBarNavBar {
       border: none;
       border-radius: 20px;
-      height: 7vh;
-      font-size: 20px;
+      height: 5vh;
+      font-size: 15px;
+      padding-left: 10px;
+      width: 30vh;
+      color: $primary-color;
+
+      box-sizing: border-box;
+      background-size: 25px;
+      background-image: url('../assets/searchIcon.png');
+      background-position: bottom 50% right 3%;
+      background-repeat: no-repeat;
     }
 
     #searchBarNavBar:focus {
       outline: none;
     }
 
+     */
+
     #menuIconNavBar {
       width: 50px;
+      cursor: pointer;
     }
 
     .routerLinksNavBar {
