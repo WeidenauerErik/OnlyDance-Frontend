@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  MainPageView
+  MainPageView - gerade in Bau
 </template>

@@ -26,9 +26,11 @@ const showMenu = ref(false);
       <img src="../assets/menuIcon.png" id="menuIconNavBar" alt="Menu button" @click="showMenu = !showMenu">
 
       <div v-if="showMenu" id="menuDropdown">
-        <RouterLink to="/checklist" class="routerLinksMenuNavBar">Checklist</RouterLink>
+        <RouterLink to="/login" class="routerLinksMenuNavBar" id="loginMenuBar">Login</RouterLink>
+        <RouterLink to="/signup" class="routerLinksMenuNavBar" id="signUpMenuBar">SignUp</RouterLink>
+        <RouterLink to="/checklist" class="routerLinksMenuNavBar">Checkliste</RouterLink>
         <RouterLink to="/mainpage" class="routerLinksMenuNavBar">MainPage</RouterLink>
-        <RouterLink to="/events" class="routerLinksMenuNavBar">EventCalendar</RouterLink>
+        <RouterLink to="/events" class="routerLinksMenuNavBar">Event Kalendar</RouterLink>
       </div>
     </nav>
   </div>
@@ -42,6 +44,7 @@ const showMenu = ref(false);
   align-items: center;
   width: 100%;
   background-color: $tertiary-color;
+  height: 10vh;
 
   #logoContainerNavBar {
     display: flex;
@@ -63,8 +66,8 @@ const showMenu = ref(false);
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-right: 20px;
     position: relative;
+    justify-content: space-evenly;
 
     .routerLinksNavBar {
       text-decoration: none;
@@ -88,19 +91,19 @@ const showMenu = ref(false);
       position: relative;
       display: flex;
       align-items: center;
-      width: 40vh;
+      justify-content: flex-end;
+      width: 30%;
 
       #searchBarInputNavBar {
         flex: 1;
         border: none;
         border-radius: 20px;
-        height: 5vh;
+        height: 5.5vh;
         font-size: 15px;
-        padding-left: 10px;
         color: var(--primary-color);
         box-sizing: border-box;
-        padding-right: 40px;
         outline: none;
+        padding-left: 5px;
       }
 
       #searchBarButtonNavBar {
@@ -110,9 +113,8 @@ const showMenu = ref(false);
         border: none;
         cursor: pointer;
         display: flex;
+        justify-content: end;
         align-items: center;
-        justify-content: center;
-        padding: 5px;
 
         img {
           width: 25px;
@@ -128,8 +130,9 @@ const showMenu = ref(false);
 
     #menuDropdown {
       position: absolute;
+      z-index: 99;
       top: 110%;
-      right: 0;
+      right: 3%;
       background-color: $basic-white;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -142,7 +145,25 @@ const showMenu = ref(false);
         text-decoration: none;
         color: $tertiary-color;
       }
+
+      #signUpMenuBar, #loginMenuBar {
+        display: none;
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #titleNavBar {
+    display: none;
+  }
+
+  #signUpMenuBar, #loginMenuBar {
+    display: flex !important;
+  }
+
+  #signUpNavBar, #loginNavBar {
+    display: none;
   }
 }
 </style>

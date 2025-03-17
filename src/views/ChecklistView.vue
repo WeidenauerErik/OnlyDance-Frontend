@@ -3,7 +3,7 @@
 </script>
 
 <template>
-ChecklistView
+ChecklistView - gerade in Bau
 </template>
 
 <style scoped>

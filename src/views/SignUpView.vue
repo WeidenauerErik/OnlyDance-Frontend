@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  Sign Up View
+  Sign Up View - gerade in Bau
 </template>
 
 <style scoped>

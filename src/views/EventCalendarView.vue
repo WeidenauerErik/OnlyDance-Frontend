@@ -3,7 +3,7 @@
 </script>
 
 <template>
-EventCalendarView
+EventCalendarView - gerade in Bau
 </template>
 
 <style scoped>

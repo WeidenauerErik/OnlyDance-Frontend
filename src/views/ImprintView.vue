@@ -3,7 +3,7 @@
 </script>
 
 <template>
-ImprintView
+ImprintView - gerade in Bau
 </template>
 
 <style scoped>

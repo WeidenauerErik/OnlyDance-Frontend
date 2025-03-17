@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import {ref, computed, onMounted, nextTick} from 'vue';
+import LoaderComponent from "@/components/LoaderComponent.vue";
 
 export interface FootStep {
   height: number;
@@ -24,6 +25,7 @@ export interface Step {
 const stepCounter = ref<number>(0);
 const danceStepCounter = ref<number>(1);
 const danceStepLength = ref<number>(0);
+const danceName = ref<string>()
 
 const footHeightDifferenz = 55;
 const footWidthDifferenz = 25;
@@ -37,15 +39,7 @@ const steps = ref<Step[]>([]);
 const updateFeet = (step: Step) => {
   howQuick.value = step.howQuick;
 
-  const updateFoot = (
-      footId: string,
-      footData: FootStep,
-      toeId: string,
-      heelId: string,
-      letterId: string,
-      activeColor: string,
-      inactiveColor: string
-  ) => {
+  const updateFoot = (footId: string, footData: FootStep, toeId: string, heelId: string, letterId: string, activeColor: string, inactiveColor: string) => {
     const foot = document.getElementById(footId) as HTMLElement;
     const toes = document.getElementById(toeId) as HTMLElement;
     const heel = document.getElementById(heelId) as HTMLElement;
@@ -82,9 +76,23 @@ onMounted(() => {
       .then((data: Step[]) => {
         steps.value = data;
         danceStepLength.value = data.length;
+        danceName.value = 'Walzer';
         stepCounter.value = 0;
-        resize();
         window.addEventListener('resize', resize);
+      })
+      .then(async () => {
+        await nextTick();
+        const morphDiv = document.getElementById('morphDiv') as HTMLElement;
+        const controls = document.getElementById('controls') as HTMLElement;
+        const loader = document.getElementById('loader') as HTMLElement;
+
+        if (morphDiv && controls && loader) {
+          morphDiv.style.display = 'flex';
+          controls.style.display = 'flex';
+          loader.style.display = "none";
+        }
+
+        resize();
       });
 });
 
@@ -126,7 +134,19 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 </script>
 
 <template>
+  <div id="loader">
+  <LoaderComponent/>
+  </div>
   <div id="morphDiv">
+    <div id="infoDisplay">
+      <div>
+        <h1 id="infoTextDisplay"> {{ danceName }}:</h1>
+      </div>
+      <div>
+        <span id="infoCounterDisplay"> {{ danceStepCounter }} / {{ danceStepLength }}</span>
+      </div>
+    </div>
+
     <div
         id="manLeftFoot"
         class="foot"
@@ -181,16 +201,13 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
   </div>
 
   <div id="controls">
-    <div class="controlsElement">
-      <span> {{ danceStepCounter }} / {{ danceStepLength }}</span>
-    </div>
     <div class="controlsSpacer"></div>
     <button id="backButton" class="controlsElement" @click="BackBtn" :disabled="BackBtnDisabled">
-      Back
+      Zurück
     </button>
     <div class="controlsSpacer"></div>
     <button id="nextButton" class="controlsElement" @click="NextBtn" :disabled="NextBtnDisabled">
-      Next
+      Weiter
     </button>
     <div class="controlsSpacer"></div>
     <button
@@ -199,7 +216,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
         @click="BackToBeginBtn"
         :disabled="BackToBeginBtnDisabled"
     >
-      Retry
+      Zurück zum Anfang
     </button>
     <div class="controlsSpacer"></div>
     <button
@@ -217,9 +234,28 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 #morphDiv {
   width: 100%;
   height: 90vh;
-  display: flex;
   position: relative;
+  display: none;
+  #infoDisplay {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 
+    #infoCounterDisplay, #infoTextDisplay {
+      position: relative;
+      top: 1%;
+    }
+
+    #infoCounterDisplay {
+      right: 5%;
+    }
+
+    #infoTextDisplay {
+      left: 10%;
+      margin: 0;
+    }
+  }
   #manLeftFoot,
   #manRightFoot,
   #womanLeftFoot,
@@ -233,18 +269,17 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
     }
   }
 
+
   .quickMovement {
-    transition:
-        top 0.5s ease,
-        left 0.5s ease,
-        transform 0.5s ease;
+    transition: top 0.5s ease,
+    left 0.5s ease,
+    transform 0.5s ease;
   }
 
   .slowMovement {
-    transition:
-        top 4s ease,
-        left 4s ease,
-        transform 4s ease;
+    transition: top 4s ease,
+    left 4s ease,
+    transform 4s ease;
   }
 
   #manLeftFoot,
@@ -301,8 +336,8 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 }
 
 #controls {
+  display: none;
   padding: 10px;
-  display: flex;
   justify-content: center;
 
   .controlsSpacer {

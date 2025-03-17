@@ -17,13 +17,12 @@ import {RouterLink} from "vue-router";
 
     <nav id="linksContainerFooter">
       <span>Quicklinks:</span>
-      <RouterLink to="/" class="linksFooter">LandingPage</RouterLink>
-      <RouterLink to="/checklist" class="linksFooter">Checklist</RouterLink>
-      <RouterLink to="/mainpage" class="linksFooter">MainPage</RouterLink>
-      <RouterLink to="/events" class="linksFooter">EventCalendar</RouterLink>
-      <RouterLink to="/imprint" class="linksFooter">Imprint</RouterLink>
       <RouterLink to="/signup" class="linksFooter">SignUp</RouterLink>
       <RouterLink to="/login" class="linksFooter">Login</RouterLink>
+      <RouterLink to="/mainpage" class="linksFooter">MainPage</RouterLink>
+      <RouterLink to="/checklist" class="linksFooter">Checkliste</RouterLink>
+      <RouterLink to="/events" class="linksFooter">EventKalendar</RouterLink>
+      <RouterLink to="/imprint" class="linksFooter">Impressum</RouterLink>
     </nav>
   </div>
 </template>

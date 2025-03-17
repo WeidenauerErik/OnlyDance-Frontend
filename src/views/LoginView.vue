@@ -3,7 +3,7 @@
 </script>
 
 <template>
-LoginView
+LoginView - gerade in Bau
 </template>
 
 <style scoped>

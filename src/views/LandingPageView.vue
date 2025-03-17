@@ -2,7 +2,7 @@
 </script>
 
 <template>
-LandingPageView
+  <span>LandingPageView - gerade in Bau</span>
 </template>
 
 <style scoped>
