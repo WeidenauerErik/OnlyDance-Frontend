@@ -1,26 +1,7 @@
 <script setup lang="ts">
 import {ref, computed, onMounted, nextTick} from 'vue';
 import LoaderComponent from "@/components/LoaderComponent.vue";
-
-export interface FootStep {
-  height: number;
-  width: number;
-  rotate: number;
-  footToesActive: boolean;
-  footHeelActive: boolean;
-}
-
-export interface Step {
-  howQuick: number;
-  man: {
-    leftFoot: FootStep;
-    rightFoot: FootStep;
-  };
-  woman: {
-    leftFoot: FootStep;
-    rightFoot: FootStep;
-  };
-}
+import {type FootStep, type Step} from "@/tsTypes/interfacesDanceView.ts";
 
 const stepCounter = ref<number>(0);
 const danceStepCounter = ref<number>(1);
@@ -32,6 +13,8 @@ const footWidthDifferenz = 25;
 
 let screenWidth: number;
 let screenHeight: number;
+
+let breakpoint: boolean;
 
 const howQuick = ref<number>(2);
 const steps = ref<Step[]>([]);
@@ -93,11 +76,13 @@ onMounted(() => {
         }
 
         resize();
+        morphDiv.scrollIntoView({ behavior: "smooth", block: "start" });
       });
 });
 
 const BackBtn = () => {
   if (stepCounter.value > 0) {
+    breakpoint = true;
     stepCounter.value--;
     danceStepCounter.value--;
     updateFeet(steps.value[stepCounter.value]);
@@ -106,6 +91,7 @@ const BackBtn = () => {
 
 const NextBtn = () => {
   if (stepCounter.value < steps.value.length - 1) {
+    breakpoint = true;
     stepCounter.value++;
     danceStepCounter.value++;
     updateFeet(steps.value[stepCounter.value]);
@@ -113,13 +99,19 @@ const NextBtn = () => {
 };
 
 const BackToBeginBtn = () => {
+  breakpoint = true;
   stepCounter.value = 0;
   danceStepCounter.value = 1;
   updateFeet(steps.value[stepCounter.value]);
 };
 
 const AutoplayBtn = async () => {
+  breakpoint = false;
   while (stepCounter.value < steps.value.length - 1) {
+    if (breakpoint) {
+      breakpoint = false;
+      break;
+    }
     stepCounter.value++;
     danceStepCounter.value++;
     updateFeet(steps.value[stepCounter.value]);
@@ -134,55 +126,72 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 </script>
 
 <template>
+
   <div id="loader">
-  <LoaderComponent/>
+
+    <LoaderComponent/>
+
   </div>
+
   <div id="morphDiv">
+
     <div id="infoDisplay">
+
       <div>
+
         <h1 id="infoTextDisplay"> {{ danceName }}:</h1>
+
       </div>
+
       <div>
+
         <span id="infoCounterDisplay"> {{ danceStepCounter }} / {{ danceStepLength }}</span>
+
       </div>
+
     </div>
 
-    <div
-        id="manLeftFoot"
-        class="foot"
-        :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
-    >
+    <div id="manLeftFoot" class="foot" :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }">
+
       <div id="manLeftFootToes" class="manToe">
+
         <span id="manLeftFootLetter" class="footLetter">L</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div id="manLeftFootHeel" class="manHeel"></div>
+
     </div>
 
-    <div
-        id="manRightFoot"
-        class="foot"
-        :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
-    >
+    <div id="manRightFoot" class="foot" :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }">
+
       <div id="manRightFootToes" class="manToe">
+
         <span id="manRightFootLetter" class="footLetter">R</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div id="manRightFootHeel" class="manHeel"></div>
+
     </div>
 
-    <div
-        id="womanLeftFoot"
-        class="foot"
-        :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
-    >
+    <div id="womanLeftFoot" class="foot" :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }">
+
       <div id="womanLeftFootToes" class="womanToe">
+
         <span id="womanLeftFootLetter" class="footLetter">L</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
+
         <div id="womanLeftFootHeel" class="womanHeel"></div>
+
       </div>
+
     </div>
 
     <div
@@ -190,17 +199,26 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
         class="foot"
         :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
     >
+
       <div id="womanRightFootToes" class="womanToe">
+
         <span id="womanRightFootLetter" class="footLetter">R</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
+
         <div id="womanRightFootHeel" class="womanHeel"></div>
+
       </div>
+
     </div>
+
   </div>
 
   <div id="controls">
+
     <div class="controlsSpacer"></div>
     <button id="backButton" class="controlsElement" @click="BackBtn" :disabled="BackBtnDisabled">
       Zurück
@@ -210,24 +228,15 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
       Weiter
     </button>
     <div class="controlsSpacer"></div>
-    <button
-        id="nextButton"
-        class="controlsElement"
-        @click="BackToBeginBtn"
-        :disabled="BackToBeginBtnDisabled"
-    >
+    <button id="nextButton" class="controlsElement" @click="BackToBeginBtn" :disabled="BackToBeginBtnDisabled">
       Zurück zum Anfang
     </button>
     <div class="controlsSpacer"></div>
-    <button
-        id="autoplayButton"
-        class="controlsElement"
-        @click="AutoplayBtn"
-        :disabled="AutoplayBtnDisabled"
-    >
-      Autoplay
+    <button id="autoplayButton" class="controlsElement" @click="AutoplayBtn" :disabled="AutoplayBtnDisabled">Autoplay
     </button>
+
   </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -236,26 +245,24 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
   height: 90vh;
   position: relative;
   display: none;
+
   #infoDisplay {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    margin: 0 10px 0 10px;
 
     #infoCounterDisplay, #infoTextDisplay {
       position: relative;
       top: 1%;
-    }
-
-    #infoCounterDisplay {
-      right: 5%;
-    }
-
-    #infoTextDisplay {
-      left: 10%;
       margin: 0;
+      height: 5vh;
+      display: flex;
+      align-items: center;
     }
   }
+
   #manLeftFoot,
   #manRightFoot,
   #womanLeftFoot,
@@ -350,10 +357,14 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
     align-items: center;
     width: 10rem;
     height: 2.5rem;
-    background-color: $primary-color;
-    color: $basic-white;
+    background-color: $buttonColorPrimary;
+    color: $fontColorWhite;
     border: none;
     cursor: pointer;
+  }
+
+  .controlsElement:disabled {
+    background-color: $buttonColorPrimaryDisabled;
   }
 }
 </style>

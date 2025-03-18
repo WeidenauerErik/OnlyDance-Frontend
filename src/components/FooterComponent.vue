@@ -4,70 +4,98 @@ import {RouterLink} from "vue-router";
 </script>
 
 <template>
-  <div id="footerContainer">
+  <div id="footerMainContainer">
 
-    <div>
-      <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
+    <div id="footerUpperContainer">
+
+      <div>
+
+        <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
+
+      </div>
+
+      <div id="visionContainerFooter">
+
+        <span id="visionTextFooter">"Know what to dance!"</span>
+        <span>- OnlyDance 2025</span>
+
+      </div>
+
     </div>
 
-    <div id="visionContainerFooter">
-      <span id="visionTextFooter">"Know what to dance!"</span>
-      <span>- OnlyDance 2025</span>
-    </div>
+    <nav id="footerLinksContainer">
 
-    <nav id="linksContainerFooter">
-      <span>Quicklinks:</span>
-      <RouterLink to="/signup" class="linksFooter">SignUp</RouterLink>
-      <RouterLink to="/login" class="linksFooter">Login</RouterLink>
-      <RouterLink to="/mainpage" class="linksFooter">MainPage</RouterLink>
-      <RouterLink to="/checklist" class="linksFooter">Checkliste</RouterLink>
-      <RouterLink to="/events" class="linksFooter">EventKalendar</RouterLink>
-      <RouterLink to="/imprint" class="linksFooter">Impressum</RouterLink>
+      <div id="innerFooterLinksContainer">
+
+        <RouterLink to="/signup" class="linksFooter">SignUp</RouterLink>
+        <span>|</span>
+        <RouterLink to="/login" class="linksFooter">Login</RouterLink>
+        <span>|</span>
+        <RouterLink to="/mainpage" class="linksFooter">MainPage</RouterLink>
+        <span>|</span>
+        <RouterLink to="/checklist" class="linksFooter">Checkliste</RouterLink>
+        <span>|</span>
+        <RouterLink to="/events" class="linksFooter">EventKalendar</RouterLink>
+        <span>|</span>
+        <RouterLink to="/imprint" class="linksFooter">Impressum</RouterLink>
+
+      </div>
+
     </nav>
+
   </div>
 </template>
 
 <style scoped lang="scss">
 
+#footerMainContainer {
+  background-color: $backgroundColorPrimary;
+  color: $fontColorWhite;
 
-#footerContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 35vh;
-  background-color: $tertiary-color;
-  color: $basic-white;
-
-  img {
-    width: 100px;
-    height: 100px;
-  }
-
-  #visionContainerFooter {
+  #footerUpperContainer {
     display: flex;
-    flex-direction: column;
-
-    #visionTextFooter {
-      font-size: 35px;
-    }
-  }
-
-  #linksContainerFooter {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
+    height: 35vh;
 
-    .linksFooter {
-      text-decoration: none;
-      color: $basic-white;
+    img {
+      width: 100px;
+      height: 100px;
     }
 
-    .linksFooter:hover {
-      text-decoration-line: underline;
+    #visionContainerFooter {
+      display: flex;
+      flex-direction: column;
+
+      #visionTextFooter {
+        font-size: 35px;
+      }
+    }
+  }
+
+  #footerLinksContainer {
+    padding-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    #innerFooterLinksContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      width: 80%;
+
+      .linksFooter {
+        text-decoration: none;
+        color: $fontColorWhite;
+      }
+
+      .linksFooter:hover {
+        text-decoration-line: underline;
+      }
     }
   }
 }
-
-
 </style>

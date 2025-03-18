@@ -43,7 +43,7 @@ const showMenu = ref(false);
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: $tertiary-color;
+  background-color: $backgroundColorPrimary;
   height: 10vh;
 
   #logoContainerNavBar {
@@ -58,7 +58,7 @@ const showMenu = ref(false);
 
     #titleNavBar {
       font-size: 35px;
-      color: $basic-white;
+      color: $fontColorWhite;
     }
   }
 
@@ -73,11 +73,11 @@ const showMenu = ref(false);
       text-decoration: none;
       padding: 5px 10px;
       border-radius: 5px;
-      color: $basic-white;
+      color: $fontColorWhite;
     }
 
     #signUpNavBar {
-      border: $basic-white 1px solid;
+      border: $fontColorWhite 1px solid;
       padding: 10px;
       border-radius: 10px;
       margin: 0 20px 0 20px;
@@ -133,7 +133,7 @@ const showMenu = ref(false);
       z-index: 99;
       top: 110%;
       right: 3%;
-      background-color: $basic-white;
+      background-color: $fontColorWhite;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       display: flex;
@@ -143,7 +143,7 @@ const showMenu = ref(false);
 
       .routerLinksMenuNavBar {
         text-decoration: none;
-        color: $tertiary-color;
+        color: $backgroundColorPrimary;
       }
 
       #signUpMenuBar, #loginMenuBar {

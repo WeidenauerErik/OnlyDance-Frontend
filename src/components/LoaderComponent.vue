@@ -25,7 +25,7 @@
   position: absolute;
   inset: 0px;
   border-radius: 50%;
-  border: 5px solid $tertiary-color;
+  border: 5px solid $backgroundColorPrimary;
   animation: prixClipFix 1.5s linear infinite;
 }
 
