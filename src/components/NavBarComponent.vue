@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {RouterLink} from "vue-router";
+import {RouterLink, useRouter} from "vue-router";
+
+const router = useRouter();
 
 const showMenu = ref(false);
 </script>
@@ -13,7 +15,7 @@ const showMenu = ref(false);
     </RouterLink>
 
     <nav id="linksContainerNavBar">
-      <div id="searchBarContainerNavBar">
+      <div id="searchBarContainerNavBar" v-if="!(router.currentRoute.value.path === '/mainpage')">
         <input type="text" id="searchBarInputNavBar">
         <button id="searchBarButtonNavBar">
           <img src="../assets/searchIcon.png" alt="Search Icon">
