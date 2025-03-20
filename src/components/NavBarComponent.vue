@@ -1,10 +1,23 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, onMounted, onUnmounted} from "vue";
 import {RouterLink, useRouter} from "vue-router";
 
 const router = useRouter();
-
 const showMenu = ref(false);
+
+const closeMenu = (event: MouseEvent) => {
+  const menu = document.getElementById("menuDropdown");
+  const menuIcon = document.getElementById("menuIconNavBar");
+  if (menu && menuIcon && !menu.contains(event.target as Node) && !menuIcon.contains(event.target as Node)) showMenu.value = false;
+};
+
+onMounted(() => {
+  document.addEventListener("click", closeMenu);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", closeMenu);
+});
 </script>
 
 <template>
