@@ -16,319 +16,173 @@ app.listen(port, () => {
 
 const steps = [
   {
-    howQuick: 2,
+    howQuick: 2,  //base
     woman: {
-      leftFoot: {
-        height: 0.5,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.5,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.55, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: true, footHeelActive: true, }, },
     man: {
-      leftFoot: {
-        height: 0.7,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.7,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.55, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2,  //Start 1/4
     woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: false, footHeelActive: false, }, },
     man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2, //Wiege 2/4
     woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.3, width: 0.6, rotate: 180, footToesActive: true, footHeelActive: true, }, },
     man: {
-      leftFoot: {
-        height: 0.5,
-        width: 0.75,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
+      leftFoot: { height: 0.5, width: 0.6, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2,  //Wiege 3/4
     woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.3, width: 0.6, rotate: 180, footToesActive: false, footHeelActive: false, }, },
     man: {
-      leftFoot: {
-        height: 0.5,
-        width: 0.75,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
+      leftFoot: { height: 0.5, width: 0.6, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2,  //cha 4/4
     woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: true, footHeelActive: true, }, },
     man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2,  //cha 4,5/4
     woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: false, footHeelActive: false, }, },
     man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2,  //cha 1/4
     woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: true, footHeelActive: true, }, },
     man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
+  {
+    howQuick: 2,  //Wiege 2/4
+    woman: {
+      leftFoot: { height: 0.7, width: 0.35, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: false, footHeelActive: false, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.9, width: 0.35, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
+  {
+    howQuick: 2,  //Wiege 3/4
+    woman: {
+      leftFoot: { height: 0.7, width: 0.35, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: true, footHeelActive: true, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.9, width: 0.35, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
+  {
+    howQuick: 2,  //cha 4/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: false, footHeelActive: false, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
+  {
+    howQuick: 2,  //cha 4,5/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: true, footHeelActive: true, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
 
+  //-----------------------------------------------------Wiederhohlung--------------------------------------------------//
   {
-    howQuick: 2,
+    howQuick: 2,  //Start 1/4
     woman: {
-      leftFoot: {
-        height: 0.2,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.2,
-        width: 0.45,
-        rotate: 270,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: false, footHeelActive: false, }, },
     man: {
-      leftFoot: {
-        height: 0.9,
-        width: 0.45,
-        rotate: -90,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.9,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
   {
-    howQuick: 2,
+    howQuick: 2, //Wiege 2/4
     woman: {
-      leftFoot: {
-        height: 0.2,
-        width: 0.3,
-        rotate: 180,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.2,
-        width: 0.15,
-        rotate: 270,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.3, width: 0.6, rotate: 180, footToesActive: true, footHeelActive: true, }, },
     man: {
-      leftFoot: {
-        height: 0.9,
-        width: 0.15,
-        rotate: -90,
-        footToesActive: true,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.9,
-        width: 0.3,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
+      leftFoot: { height: 0.5, width: 0.6, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
+  {
+    howQuick: 2,  //Wiege 3/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.3, width: 0.6, rotate: 180, footToesActive: false, footHeelActive: false, }, },
+    man: {
+      leftFoot: { height: 0.5, width: 0.6, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
+  {
+    howQuick: 2,  //cha 4/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.65, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: true, footHeelActive: true, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.65, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
+  {
+    howQuick: 2,  //cha 4,5/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: false, footHeelActive: false, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
+  {
+    howQuick: 2,  //cha 1/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: true, footHeelActive: true, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
+  {
+    howQuick: 2,  //Wiege 2/4
+    woman: {
+      leftFoot: { height: 0.7, width: 0.35, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: false, footHeelActive: false, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.9, width: 0.35, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
+  {
+    howQuick: 2,  //Wiege 3/4
+    woman: {
+      leftFoot: { height: 0.7, width: 0.35, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: true, footHeelActive: true, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.9, width: 0.35, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
+  {
+    howQuick: 2,  //cha 4/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.5, width: 0.3, rotate: 180, footToesActive: false, footHeelActive: false, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.3, rotate: 0, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: true, footHeelActive: true, }, }, },
+  {
+    howQuick: 2,  //cha 4,5/4
+    woman: {
+      leftFoot: { height: 0.5, width: 0.50, rotate: 180, footToesActive: false, footHeelActive: false, },
+      rightFoot: { height: 0.5, width: 0.45, rotate: 180, footToesActive: true, footHeelActive: true, }, },
+    man: {
+      leftFoot: { height: 0.7, width: 0.45, rotate: 0, footToesActive: true, footHeelActive: true, },
+      rightFoot: { height: 0.7, width: 0.50, rotate: 0, footToesActive: false, footHeelActive: false, }, }, },
 ]
