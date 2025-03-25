@@ -50,7 +50,7 @@ import {RouterLink} from "vue-router";
 
 #footerMainContainer {
   background-color: $backgroundColorPrimary;
-  color: $fontColorWhite;
+  color: $colorWhite;
 
   #footerUpperContainer {
     display: flex;
@@ -60,8 +60,8 @@ import {RouterLink} from "vue-router";
     height: 35vh;
 
     img {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
     }
 
     #visionContainerFooter {
@@ -89,7 +89,7 @@ import {RouterLink} from "vue-router";
 
       .linksFooter {
         text-decoration: none;
-        color: $fontColorWhite;
+        color: $colorWhite;
       }
 
       .linksFooter:hover {

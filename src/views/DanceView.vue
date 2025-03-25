@@ -155,7 +155,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 
       <div id="manLeftFootToes" class="manToe">
 
-        <span id="manLeftFootLetter" class="footLetter">L</span>
+        <span id="manLeftFootLetter" class="footLetter">L1</span>
 
       </div>
 
@@ -168,7 +168,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 
       <div id="manRightFootToes" class="manToe">
 
-        <span id="manRightFootLetter" class="footLetter">R</span>
+        <span id="manRightFootLetter" class="footLetter">R1</span>
 
       </div>
 
@@ -181,7 +181,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 
       <div id="womanLeftFootToes" class="womanToe">
 
-        <span id="womanLeftFootLetter" class="footLetter">L</span>
+        <span id="womanLeftFootLetter" class="footLetter">L2</span>
 
       </div>
 
@@ -202,7 +202,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 
       <div id="womanRightFootToes" class="womanToe">
 
-        <span id="womanRightFootLetter" class="footLetter">R</span>
+        <span id="womanRightFootLetter" class="footLetter">R2</span>
 
       </div>
 
@@ -358,7 +358,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
     width: 10rem;
     height: 2.5rem;
     background-color: $buttonColorPrimary;
-    color: $fontColorWhite;
+    color: $colorWhite;
     border: none;
     cursor: pointer;
   }

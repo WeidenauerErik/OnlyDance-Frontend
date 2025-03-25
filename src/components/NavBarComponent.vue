@@ -69,11 +69,12 @@ onUnmounted(() => {
 
     #logoNavBar {
       width: 50px;
+      margin-right: 5px;
     }
 
     #titleNavBar {
       font-size: 35px;
-      color: $fontColorWhite;
+      color: $colorWhite;
     }
   }
 
@@ -88,11 +89,11 @@ onUnmounted(() => {
       text-decoration: none;
       padding: 5px 10px;
       border-radius: 5px;
-      color: $fontColorWhite;
+      color: $colorWhite;
     }
 
     #signUpNavBar {
-      border: $fontColorWhite 1px solid;
+      border: $colorWhite 1px solid;
       padding: 10px;
       border-radius: 10px;
       margin: 0 20px 0 20px;
@@ -110,15 +111,15 @@ onUnmounted(() => {
       width: 30%;
 
       #searchBarInputNavBar {
-        flex: 1;
         border: none;
         border-radius: 20px;
         height: 5.5vh;
         font-size: 15px;
-        color: var(--primary-color);
+        color: $colorPurple;
         box-sizing: border-box;
         outline: none;
         padding-left: 5px;
+        width: 300px;
       }
 
       #searchBarButtonNavBar {
@@ -148,7 +149,7 @@ onUnmounted(() => {
       z-index: 99;
       top: 110%;
       right: 3%;
-      background-color: $fontColorWhite;
+      background-color: $colorWhite;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       display: flex;

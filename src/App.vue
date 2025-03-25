@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import {RouterView} from 'vue-router'
 import NavBarComponent from './components/NavBarComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
 </script>
 
 <template>
-
   <div id="pageContainer">
+
     <div id="contentWrap">
-  <header>
-    <NavBarComponent/>
-  </header>
-  <RouterView />
+      <header>
+        <NavBarComponent/>
+      </header>
+      <RouterView/>
     </div>
-  <footer id="footer">
-    <FooterComponent/>
-  </footer>
+
+    <footer id="footer">
+      <FooterComponent/>
+    </footer>
   </div>
 </template>
 
