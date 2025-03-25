@@ -114,34 +114,34 @@ let womanRightFootLetter
 
 let steps = [
   {
-    howQuick: 2,
+    howQuick: 1,
     woman: {
       leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
+        height: 0.4,
+        width: 0.53,
         rotate: 180,
         footToesActive: false,
         footHeelActive: false,
       },
+      rightFoot: {
+        height: 0.4,
+        width: 0.45,
+        rotate: 180,
+        footToesActive: true,
+        footHeelActive: true,
+      },
     },
     man: {
       leftFoot: {
-        height: 0.8,
+        height: 0.65,
         width: 0.45,
         rotate: 0,
         footToesActive: true,
         footHeelActive: true,
       },
       rightFoot: {
-        height: 0.8,
-        width: 0.6,
+        height: 0.65,
+        width: 0.53,
         rotate: 0,
         footToesActive: false,
         footHeelActive: false,
@@ -152,84 +152,14 @@ let steps = [
     howQuick: 2,
     woman: {
       leftFoot: {
-        height: 0.1,
+        height: 0.4,
         width: 0.6,
         rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.5,
-        width: 0.75,
-        rotate: 0,
         footToesActive: true,
         footHeelActive: true,
       },
       rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
+        height: 0.4,
         width: 0.45,
         rotate: 180,
         footToesActive: false,
@@ -238,84 +168,14 @@ let steps = [
     },
     man: {
       leftFoot: {
-        height: 0.5,
-        width: 0.75,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.8,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-  },
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.1,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.8,
+        height: 0.65,
         width: 0.45,
         rotate: 0,
         footToesActive: false,
         footHeelActive: false,
       },
       rightFoot: {
-        height: 0.8,
+        height: 0.65,
         width: 0.6,
         rotate: 0,
         footToesActive: true,
@@ -327,66 +187,30 @@ let steps = [
     howQuick: 2,
     woman: {
       leftFoot: {
-        height: 0.1,
+        height: 0.4,
         width: 0.6,
         rotate: 180,
         footToesActive: false,
-        footHeelActive: true,
-      },
-      rightFoot: {
-        height: 0.1,
-        width: 0.45,
-        rotate: 180,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-    },
-    man: {
-      leftFoot: {
-        height: 0.8,
-        width: 0.45,
-        rotate: 0,
-        footToesActive: false,
-        footHeelActive: false,
-      },
-      rightFoot: {
-        height: 0.8,
-        width: 0.6,
-        rotate: 0,
-        footToesActive: true,
-        footHeelActive: true,
-      },
-    },
-  },
-
-  {
-    howQuick: 2,
-    woman: {
-      leftFoot: {
-        height: 0.2,
-        width: 0.6,
-        rotate: 180,
-        footToesActive: true,
         footHeelActive: false,
       },
       rightFoot: {
         height: 0.2,
-        width: 0.45,
-        rotate: 270,
-        footToesActive: false,
-        footHeelActive: false,
+        width: 0.55,
+        rotate: 180,
+        footToesActive: true,
+        footHeelActive: true,
       },
     },
     man: {
       leftFoot: {
-        height: 0.9,
-        width: 0.45,
-        rotate: -90,
+        height: 0.45,
+        width: 0.55,
+        rotate: 0,
         footToesActive: true,
-        footHeelActive: false,
+        footHeelActive: true,
       },
       rightFoot: {
-        height: 0.9,
+        height: 0.65,
         width: 0.6,
         rotate: 0,
         footToesActive: false,
@@ -398,31 +222,136 @@ let steps = [
     howQuick: 2,
     woman: {
       leftFoot: {
-        height: 0.2,
-        width: 0.3,
+        height: 0.4,
+        width: 0.6,
         rotate: 180,
         footToesActive: true,
-        footHeelActive: false,
+        footHeelActive: true,
       },
       rightFoot: {
         height: 0.2,
-        width: 0.15,
-        rotate: 270,
+        width: 0.55,
+        rotate: 180,
         footToesActive: false,
         footHeelActive: false,
       },
     },
     man: {
       leftFoot: {
-        height: 0.9,
-        width: 0.15,
-        rotate: -90,
-        footToesActive: true,
+        height: 0.45,
+        width: 0.55,
+        rotate: 0,
+        footToesActive: false,
         footHeelActive: false,
       },
       rightFoot: {
-        height: 0.9,
-        width: 0.3,
+        height: 0.65,
+        width: 0.6,
+        rotate: 0,
+        footToesActive: true,
+        footHeelActive: true,
+      },
+    },
+  },
+  {
+    howQuick: 2,
+    woman: {
+      leftFoot: {
+        height: 0.4,
+        width: 0.6,
+        rotate: 180,
+        footToesActive: false,
+        footHeelActive: false,
+      },
+      rightFoot: {
+        height: 0.4,
+        width: 0.45,
+        rotate: 180,
+        footToesActive: true,
+        footHeelActive: true,
+      },
+    },
+    man: {
+      leftFoot: {
+        height: 0.65,
+        width: 0.45,
+        rotate: 0,
+        footToesActive: true,
+        footHeelActive: true,
+      },
+      rightFoot: {
+        height: 0.65,
+        width: 0.6,
+        rotate: 0,
+        footToesActive: false,
+        footHeelActive: false,
+      },
+    },
+  },
+  {
+    howQuick: 2,
+    woman: {
+      leftFoot: {
+        height: 0.4,
+        width: 0.53,
+        rotate: 180,
+        footToesActive: true,
+        footHeelActive: true,
+      },
+      rightFoot: {
+        height: 0.4,
+        width: 0.45,
+        rotate: 180,
+        footToesActive: false,
+        footHeelActive: false,
+      },
+    },
+    man: {
+      leftFoot: {
+        height: 0.65,
+        width: 0.45,
+        rotate: 0,
+        footToesActive: !true,
+        footHeelActive: !true,
+      },
+      rightFoot: {
+        height: 0.65,
+        width: 0.53,
+        rotate: 0,
+        footToesActive: !false,
+        footHeelActive: !false,
+      },
+    },
+  },
+  {
+    howQuick: 2,
+    woman: {
+      leftFoot: {
+        height: 0.4,
+        width: 0.53,
+        rotate: 180,
+        footToesActive: !true,
+        footHeelActive: !true,
+      },
+      rightFoot: {
+        height: 0.4,
+        width: 0.37,
+        rotate: 180,
+        footToesActive: !false,
+        footHeelActive: !false,
+      },
+    },
+    man: {
+      leftFoot: {
+        height: 0.65,
+        width: 0.37,
+        rotate: 0,
+        footToesActive: true,
+        footHeelActive: true,
+      },
+      rightFoot: {
+        height: 0.65,
+        width: 0.53,
         rotate: 0,
         footToesActive: false,
         footHeelActive: false,
