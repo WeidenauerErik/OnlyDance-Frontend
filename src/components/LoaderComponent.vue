@@ -30,7 +30,7 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 5px solid $backgroundColorPrimary;
+    border: 5px solid $backgroundColorViolet;
     animation: prixClipFix 1.5s linear infinite;
   }
 

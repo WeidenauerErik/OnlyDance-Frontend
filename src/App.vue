@@ -24,7 +24,7 @@ import FooterComponent from './components/FooterComponent.vue';
 #pageContainer {
   position: relative;
   min-height: 100vh;
-
+  background-color: $backgroundColorWhite;
 
   #contentWrap {
     padding-bottom: 2.5rem; /* Footer height */

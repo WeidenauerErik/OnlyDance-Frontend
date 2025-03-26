@@ -3,6 +3,9 @@ import {ref, computed, onMounted, nextTick} from 'vue';
 import LoaderComponent from "@/components/LoaderComponent.vue";
 import {type FootStep, type Step} from "@/tsTypes/interfacesDanceView.ts";
 
+import playIcon from '../assets/playIcon.svg';
+import pauseIcon from '../assets/pauseIcon.svg';
+
 const stepCounter = ref<number>(0);
 const danceStepCounter = ref<number>(1);
 const danceStepLength = ref<number>(0);
@@ -19,10 +22,13 @@ let breakpoint: boolean;
 const howQuick = ref<number>(2);
 const steps = ref<Step[]>([]);
 
+const autoplayActive = ref<boolean>(false);
+let autoplayVariable = ref<String>(playIcon);
+
 const updateFeet = (step: Step) => {
   howQuick.value = step.howQuick;
 
-  const updateFoot = (footId: string, footData: FootStep, toeId: string, heelId: string, letterId: string, activeColor: string, inactiveColor: string) => {
+  const updateFoot = (footId: string, footData: FootStep, toeId: string, heelId: string, letterId: string) => {
     const foot = document.getElementById(footId) as HTMLElement;
     const toes = document.getElementById(toeId) as HTMLElement;
     const heel = document.getElementById(heelId) as HTMLElement;
@@ -32,16 +38,15 @@ const updateFeet = (step: Step) => {
       foot.style.top = `${screenHeight * footData.height - footHeightDifferenz}px`;
       foot.style.left = `${screenWidth * footData.width - footWidthDifferenz}px`;
       foot.style.transform = `rotate(${footData.rotate}deg)`;
-      toes.style.backgroundColor = footData.footToesActive ? activeColor : inactiveColor;
-      heel.style.backgroundColor = footData.footHeelActive ? activeColor : inactiveColor;
-      letter.style.color = footData.footToesActive ? 'white' : 'black';
+      toes.style.backgroundColor = footData.footToesActive ? '#73168C' : '#875595';
+      heel.style.backgroundColor = footData.footHeelActive ? '#73168C' : '#875595';
     }
   };
 
-  updateFoot('manLeftFoot', step.man.leftFoot, 'manLeftFootToes', 'manLeftFootHeel', 'manLeftFootLetter', 'blue', 'lightblue');
-  updateFoot('manRightFoot', step.man.rightFoot, 'manRightFootToes', 'manRightFootHeel', 'manRightFootLetter', 'blue', 'lightblue');
-  updateFoot('womanLeftFoot', step.woman.leftFoot, 'womanLeftFootToes', 'womanLeftFootHeel', 'womanLeftFootLetter', 'red', '#FFCCCB');
-  updateFoot('womanRightFoot', step.woman.rightFoot, 'womanRightFootToes', 'womanRightFootHeel', 'womanRightFootLetter', 'red', '#FFCCCB');
+  updateFoot('manLeftFoot', step.man.leftFoot, 'manLeftFootToes', 'manLeftFootHeel', 'manLeftFootLetter');
+  updateFoot('manRightFoot', step.man.rightFoot, 'manRightFootToes', 'manRightFootHeel', 'manRightFootLetter');
+  updateFoot('womanLeftFoot', step.woman.leftFoot, 'womanLeftFootToes', 'womanLeftFootHeel', 'womanLeftFootLetter');
+  updateFoot('womanRightFoot', step.woman.rightFoot, 'womanRightFootToes', 'womanRightFootHeel', 'womanRightFootLetter');
 };
 
 const resize = () => {
@@ -59,14 +64,14 @@ onMounted(() => {
       .then((data: Step[]) => {
         steps.value = data;
         danceStepLength.value = data.length;
-        danceName.value = 'Walzer';
+        danceName.value = 'Cha Cha';
         stepCounter.value = 0;
         window.addEventListener('resize', resize);
       })
       .then(async () => {
         await nextTick();
         const morphDiv = document.getElementById('morphDiv') as HTMLElement;
-        const controls = document.getElementById('controls') as HTMLElement;
+        const controls = document.getElementById('controlsMainContainer') as HTMLElement;
         const loader = document.getElementById('loader') as HTMLElement;
 
         if (morphDiv && controls && loader) {
@@ -76,7 +81,7 @@ onMounted(() => {
         }
 
         resize();
-        morphDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+        morphDiv.scrollIntoView({behavior: "smooth", block: "start"});
       });
 });
 
@@ -105,24 +110,36 @@ const BackToBeginBtn = () => {
   updateFeet(steps.value[stepCounter.value]);
 };
 
+const BackToEndBtn = () => {
+  breakpoint = true;
+  stepCounter.value = steps.value.length - 1;
+  danceStepCounter.value = steps.value.length;
+  updateFeet(steps.value[stepCounter.value]);
+};
+
 const AutoplayBtn = async () => {
+  if (autoplayActive.value) {
+    breakpoint = true;
+    autoplayVariable.value = playIcon;
+    autoplayActive.value = false;
+    return;
+  }
+
+  autoplayVariable.value = pauseIcon;
+  autoplayActive.value = true;
   breakpoint = false;
-  while (stepCounter.value < steps.value.length - 1) {
-    if (breakpoint) {
-      breakpoint = false;
-      break;
-    }
+
+  while (stepCounter.value < steps.value.length - 1 && autoplayActive.value) {
     stepCounter.value++;
     danceStepCounter.value++;
     updateFeet(steps.value[stepCounter.value]);
     await new Promise((resolve) => setTimeout(resolve, steps.value[stepCounter.value].howQuick * 500));
   }
+
+  autoplayVariable.value = playIcon;
+  autoplayActive.value = false;
 };
 
-const NextBtnDisabled = computed(() => stepCounter.value >= steps.value.length - 1);
-const AutoplayBtnDisabled = computed(() => stepCounter.value >= steps.value.length - 1);
-const BackBtnDisabled = computed(() => stepCounter.value <= 0);
-const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 </script>
 
 <template>
@@ -217,24 +234,28 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 
   </div>
 
-  <div id="controls">
+  <div id="controlsMainContainer">
+    <div id="controlsContainer">
+      <button id="nextButton" class="controlsElement" @click="BackToBeginBtn">
+        <img src="../assets/skipLeftIcon.svg" alt="Zurück zum Anfang">
+      </button>
 
-    <div class="controlsSpacer"></div>
-    <button id="backButton" class="controlsElement" @click="BackBtn" :disabled="BackBtnDisabled">
-      Zurück
-    </button>
-    <div class="controlsSpacer"></div>
-    <button id="nextButton" class="controlsElement" @click="NextBtn" :disabled="NextBtnDisabled">
-      Weiter
-    </button>
-    <div class="controlsSpacer"></div>
-    <button id="nextButton" class="controlsElement" @click="BackToBeginBtn" :disabled="BackToBeginBtnDisabled">
-      Zurück zum Anfang
-    </button>
-    <div class="controlsSpacer"></div>
-    <button id="autoplayButton" class="controlsElement" @click="AutoplayBtn" :disabled="AutoplayBtnDisabled">Autoplay
-    </button>
+      <button id="backButton" class="controlsElement" @click="BackBtn">
+        <img src="../assets/arrowLeftIcon.svg" alt="Einen Schritt nach vorne">
+      </button>
 
+        <button id="autoplayButton" class="controlsElement" @click="AutoplayBtn">
+          <img :src="autoplayVariable" alt="Autoplay Funktion" id="autoplayImage">
+        </button>
+
+      <button id="nextButton" class="controlsElement" @click="NextBtn">
+        <img src="../assets/arrowRightIcon.svg" alt="Einen Schritt weiter">
+      </button>
+
+      <button id="nextButton" class="controlsElement" @click="BackToEndBtn">
+        <img src="../assets/skipRightIcon.svg" alt="Zum Ende">
+      </button>
+    </div>
   </div>
 
 </template>
@@ -242,7 +263,7 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
 <style scoped lang="scss">
 #morphDiv {
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   position: relative;
   display: none;
 
@@ -268,8 +289,10 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
   #womanLeftFoot,
   #womanRightFoot {
     position: absolute;
+    z-index: 99;
 
     .footLetter {
+      color: $colorWhite;
       display: flex;
       justify-content: center;
       padding: 10px;
@@ -342,29 +365,34 @@ const BackToBeginBtnDisabled = computed(() => stepCounter.value === 0);
   }
 }
 
-#controls {
+#controlsMainContainer {
+  height: 10vh;
   display: none;
   padding: 10px;
   justify-content: center;
 
-  .controlsSpacer {
-    width: 50px;
-  }
-
-  .controlsElement {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10rem;
-    height: 2.5rem;
+  #controlsContainer {
     background-color: $buttonColorPrimary;
-    color: $colorWhite;
-    border: none;
-    cursor: pointer;
-  }
+    width: 30%;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
 
-  .controlsElement:disabled {
-    background-color: $buttonColorPrimaryDisabled;
+    .controlsElement {
+      cursor: pointer;
+      border: none;
+      background-color: $buttonColorPrimary;
+    }
+
+    #autoplayButton {
+      background-color: $backgroundColorViolet;
+      width: 6vh;
+      height: 6vh;
+      border-radius: 50%;
+    }
   }
 }
 </style>

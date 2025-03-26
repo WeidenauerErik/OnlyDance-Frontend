@@ -58,7 +58,7 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: $backgroundColorPrimary;
+  background-color: $backgroundColorViolet;
   height: 10vh;
 
   #logoContainerNavBar {
@@ -159,7 +159,7 @@ onUnmounted(() => {
 
       .routerLinksMenuNavBar {
         text-decoration: none;
-        color: $backgroundColorPrimary;
+        color: $backgroundColorViolet;
       }
 
       #signUpMenuBar, #loginMenuBar {

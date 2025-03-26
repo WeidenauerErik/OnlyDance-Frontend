@@ -49,7 +49,7 @@ import {RouterLink} from "vue-router";
 <style scoped lang="scss">
 
 #footerMainContainer {
-  background-color: $backgroundColorPrimary;
+  background-color: $backgroundColorViolet;
   color: $colorWhite;
 
   #footerUpperContainer {

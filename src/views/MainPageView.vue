@@ -72,7 +72,7 @@
     border-radius: 20px;
     width: 20vh;
     color: $colorWhite;
-    background-color: $backgroundColorPrimary;
+    background-color: $backgroundColorViolet;
   }
 }
 </style>
