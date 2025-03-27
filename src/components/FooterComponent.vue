@@ -10,7 +10,7 @@ import {RouterLink} from "vue-router";
 
       <div>
 
-        <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
+        <img src="../assets/logoIcon.svg" id="logoNavBar" alt="Logo of OnlyDance">
 
       </div>
 

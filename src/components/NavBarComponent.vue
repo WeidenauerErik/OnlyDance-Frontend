@@ -2,6 +2,10 @@
 import {ref, onMounted, onUnmounted} from "vue";
 import {RouterLink, useRouter} from "vue-router";
 
+import logoIcon from '../assets/logoIcon.svg';
+import searchIcon from '../assets/searchIcon.svg';
+import menuIcon from '../assets/menuIcon.svg';
+
 const router = useRouter();
 const showMenu = ref(false);
 
@@ -23,7 +27,7 @@ onUnmounted(() => {
 <template>
   <div id="containerNavBar">
     <RouterLink to="/" id="logoContainerNavBar">
-      <img src="../assets/logo.svg" id="logoNavBar" alt="Logo of OnlyDance">
+      <img :src="logoIcon" id="logoNavBar" alt="Logo of OnlyDance">
       <h1 id="titleNavBar">OnlyDance</h1>
     </RouterLink>
 
@@ -31,14 +35,14 @@ onUnmounted(() => {
       <div id="searchBarContainerNavBar" v-if="!(router.currentRoute.value.path === '/mainpage')">
         <input type="text" id="searchBarInputNavBar">
         <button id="searchBarButtonNavBar">
-          <img src="../assets/searchIcon.png" alt="Search Icon">
+          <img :src="searchIcon" alt="Search Icon">
         </button>
       </div>
 
       <RouterLink to="/login" class="routerLinksNavBar" id="loginNavBar">Login</RouterLink>
       <RouterLink to="/signup" class="routerLinksNavBar" id="signUpNavBar">SignUp</RouterLink>
 
-      <img src="../assets/menuIcon.png" id="menuIconNavBar" alt="Menu button" @click="showMenu = !showMenu">
+      <img :src="menuIcon" id="menuIconNavBar" alt="Menu button" @click="showMenu = !showMenu">
 
       <div v-if="showMenu" id="menuDropdown">
         <RouterLink to="/login" class="routerLinksMenuNavBar" id="loginMenuBar">Login</RouterLink>

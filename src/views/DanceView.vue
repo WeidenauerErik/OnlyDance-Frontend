@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import {ref, computed, onMounted, nextTick} from 'vue';
+import {ref, onMounted, nextTick} from 'vue';
 import LoaderComponent from "@/components/LoaderComponent.vue";
 import {type FootStep, type Step} from "@/tsTypes/interfacesDanceView.ts";
 
 import playIcon from '../assets/playIcon.svg';
 import pauseIcon from '../assets/pauseIcon.svg';
+import skipLeftIcon from '../assets/skipLeftIcon.svg';
+import skipRightIcon from '../assets/skipRightIcon.svg';
+import arrowLeftIcon from '../assets/arrowLeftIcon.svg';
+import arrowRightIcon from '../assets/arrowRightIcon.svg';
 
 const stepCounter = ref<number>(0);
 const danceStepCounter = ref<number>(1);
@@ -23,7 +27,7 @@ const howQuick = ref<number>(2);
 const steps = ref<Step[]>([]);
 
 const autoplayActive = ref<boolean>(false);
-let autoplayVariable = ref<String>(playIcon);
+let autoplayVariable = ref<string>(playIcon);
 
 const updateFeet = (step: Step) => {
   howQuick.value = step.howQuick;
@@ -35,6 +39,7 @@ const updateFeet = (step: Step) => {
     const letter = document.getElementById(letterId) as HTMLElement;
 
     if (foot && toes && heel && letter) {
+      foot.style.transition = `top ${step.howQuick}s ease, left ${step.howQuick}s ease, transform ${step.howQuick}s ease`;
       foot.style.top = `${screenHeight * footData.height - footHeightDifferenz}px`;
       foot.style.left = `${screenWidth * footData.width - footWidthDifferenz}px`;
       foot.style.transform = `rotate(${footData.rotate}deg)`;
@@ -81,7 +86,6 @@ onMounted(() => {
         }
 
         resize();
-        morphDiv.scrollIntoView({behavior: "smooth", block: "start"});
       });
 });
 
@@ -143,121 +147,80 @@ const AutoplayBtn = async () => {
 </script>
 
 <template>
-
   <div id="loader">
-
     <LoaderComponent/>
-
   </div>
 
   <div id="morphDiv">
-
     <div id="infoDisplay">
-
       <div>
-
         <h1 id="infoTextDisplay"> {{ danceName }}:</h1>
-
       </div>
-
       <div>
-
         <span id="infoCounterDisplay"> {{ danceStepCounter }} / {{ danceStepLength }}</span>
-
       </div>
-
     </div>
 
-    <div id="manLeftFoot" class="foot" :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }">
-
+    <div id="manLeftFoot" class="foot">
       <div id="manLeftFootToes" class="manToe">
-
         <span id="manLeftFootLetter" class="footLetter">L1</span>
-
       </div>
-
       <div class="innerFootSpacer"></div>
       <div id="manLeftFootHeel" class="manHeel"></div>
-
     </div>
 
-    <div id="manRightFoot" class="foot" :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }">
-
+    <div id="manRightFoot" class="foot">
       <div id="manRightFootToes" class="manToe">
-
         <span id="manRightFootLetter" class="footLetter">R1</span>
-
       </div>
-
       <div class="innerFootSpacer"></div>
       <div id="manRightFootHeel" class="manHeel"></div>
-
     </div>
 
-    <div id="womanLeftFoot" class="foot" :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }">
-
+    <div id="womanLeftFoot" class="foot">
       <div id="womanLeftFootToes" class="womanToe">
-
         <span id="womanLeftFootLetter" class="footLetter">L2</span>
-
       </div>
-
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
-
         <div id="womanLeftFootHeel" class="womanHeel"></div>
-
       </div>
-
     </div>
 
-    <div
-        id="womanRightFoot"
-        class="foot"
-        :class="{ quickMovement: howQuick === 2, slowMovement: howQuick === 1 }"
-    >
-
+    <div id="womanRightFoot" class="foot">
       <div id="womanRightFootToes" class="womanToe">
-
         <span id="womanRightFootLetter" class="footLetter">R2</span>
-
       </div>
-
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
-
         <div id="womanRightFootHeel" class="womanHeel"></div>
-
       </div>
-
     </div>
-
   </div>
 
   <div id="controlsMainContainer">
     <div id="controlsContainer">
       <button id="nextButton" class="controlsElement" @click="BackToBeginBtn">
-        <img src="../assets/skipLeftIcon.svg" alt="Zurück zum Anfang">
+        <img :src="skipLeftIcon" alt="Zurück zum Anfang">
       </button>
 
       <button id="backButton" class="controlsElement" @click="BackBtn">
-        <img src="../assets/arrowLeftIcon.svg" alt="Einen Schritt nach vorne">
+        <img :src="arrowLeftIcon" alt="Einen Schritt nach vorne">
       </button>
 
-        <button id="autoplayButton" class="controlsElement" @click="AutoplayBtn">
-          <img :src="autoplayVariable" alt="Autoplay Funktion" id="autoplayImage">
-        </button>
+      <button id="autoplayButton" class="controlsElement" @click="AutoplayBtn">
+        <img :src="autoplayVariable" alt="Autoplay Funktion" id="autoplayImage">
+      </button>
 
       <button id="nextButton" class="controlsElement" @click="NextBtn">
-        <img src="../assets/arrowRightIcon.svg" alt="Einen Schritt weiter">
+        <img :src="arrowRightIcon" alt="Einen Schritt weiter">
       </button>
 
       <button id="nextButton" class="controlsElement" @click="BackToEndBtn">
-        <img src="../assets/skipRightIcon.svg" alt="Zum Ende">
+        <img :src="skipRightIcon" alt="Zum Ende">
       </button>
     </div>
   </div>
-
 </template>
 
 <style scoped lang="scss">
@@ -297,19 +260,6 @@ const AutoplayBtn = async () => {
       justify-content: center;
       padding: 10px;
     }
-  }
-
-
-  .quickMovement {
-    transition: top 0.5s ease,
-    left 0.5s ease,
-    transform 0.5s ease;
-  }
-
-  .slowMovement {
-    transition: top 4s ease,
-    left 4s ease,
-    transform 4s ease;
   }
 
   #manLeftFoot,
@@ -372,7 +322,7 @@ const AutoplayBtn = async () => {
   justify-content: center;
 
   #controlsContainer {
-    background-color: $buttonColorPrimary;
+    background-color: $backgroundColorPurple;
     width: 30%;
     height: 8vh;
     display: flex;
@@ -384,14 +334,18 @@ const AutoplayBtn = async () => {
     .controlsElement {
       cursor: pointer;
       border: none;
-      background-color: $buttonColorPrimary;
+      border-radius: 50%;
+      width: 6vh;
+      height: 6vh;
+      background-color: $backgroundColorPurple;
+
+      &:hover {
+        background-color: $backgroundColorViolet;
+      }
     }
 
     #autoplayButton {
       background-color: $backgroundColorViolet;
-      width: 6vh;
-      height: 6vh;
-      border-radius: 50%;
     }
   }
 }
