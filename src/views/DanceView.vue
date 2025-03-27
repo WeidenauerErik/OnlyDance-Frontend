@@ -3,12 +3,12 @@ import {ref, onMounted, nextTick} from 'vue';
 import LoaderComponent from "@/components/LoaderComponent.vue";
 import {type FootStep, type Step} from "@/tsTypes/interfacesDanceView.ts";
 
-import playIcon from '../assets/playIcon.svg';
-import pauseIcon from '../assets/pauseIcon.svg';
-import skipLeftIcon from '../assets/skipLeftIcon.svg';
-import skipRightIcon from '../assets/skipRightIcon.svg';
-import arrowLeftIcon from '../assets/arrowLeftIcon.svg';
-import arrowRightIcon from '../assets/arrowRightIcon.svg';
+import playIcon from '@/assets/icons/playIcon.svg';
+import pauseIcon from '@/assets/icons/pauseIcon.svg';
+import skipLeftIcon from '@/assets/icons/skipLeftIcon.svg';
+import skipRightIcon from '@/assets/icons/skipRightIcon.svg';
+import arrowLeftIcon from '@/assets/icons/arrowLeftIcon.svg';
+import arrowRightIcon from '@/assets/icons/arrowRightIcon.svg';
 
 const stepCounter = ref<number>(0);
 const danceStepCounter = ref<number>(1);
@@ -20,8 +20,6 @@ const footWidthDifferenz = 25;
 
 let screenWidth: number;
 let screenHeight: number;
-
-let breakpoint: boolean;
 
 const howQuick = ref<number>(2);
 const steps = ref<Step[]>([]);
@@ -90,8 +88,8 @@ onMounted(() => {
 });
 
 const BackBtn = () => {
+  autoplayActive.value = false;
   if (stepCounter.value > 0) {
-    breakpoint = true;
     stepCounter.value--;
     danceStepCounter.value--;
     updateFeet(steps.value[stepCounter.value]);
@@ -99,8 +97,8 @@ const BackBtn = () => {
 };
 
 const NextBtn = () => {
+  autoplayActive.value = false;
   if (stepCounter.value < steps.value.length - 1) {
-    breakpoint = true;
     stepCounter.value++;
     danceStepCounter.value++;
     updateFeet(steps.value[stepCounter.value]);
@@ -108,22 +106,25 @@ const NextBtn = () => {
 };
 
 const BackToBeginBtn = () => {
-  breakpoint = true;
+  autoplayActive.value = false;
   stepCounter.value = 0;
   danceStepCounter.value = 1;
   updateFeet(steps.value[stepCounter.value]);
 };
 
 const BackToEndBtn = () => {
-  breakpoint = true;
+  autoplayActive.value = false;
   stepCounter.value = steps.value.length - 1;
   danceStepCounter.value = steps.value.length;
   updateFeet(steps.value[stepCounter.value]);
 };
 
 const AutoplayBtn = async () => {
+  if (stepCounter.value === steps.value.length - 1) {
+    stepCounter.value = 0;
+    danceStepCounter.value = 0;
+  }
   if (autoplayActive.value) {
-    breakpoint = true;
     autoplayVariable.value = playIcon;
     autoplayActive.value = false;
     return;
@@ -131,13 +132,16 @@ const AutoplayBtn = async () => {
 
   autoplayVariable.value = pauseIcon;
   autoplayActive.value = true;
-  breakpoint = false;
 
   while (stepCounter.value < steps.value.length - 1 && autoplayActive.value) {
-    stepCounter.value++;
-    danceStepCounter.value++;
-    updateFeet(steps.value[stepCounter.value]);
-    await new Promise((resolve) => setTimeout(resolve, steps.value[stepCounter.value].howQuick * 500));
+    if (autoplayActive.value === true) {
+      stepCounter.value++;
+      danceStepCounter.value++;
+      updateFeet(steps.value[stepCounter.value]);
+      await new Promise((resolve) => setTimeout(resolve, steps.value[stepCounter.value].howQuick * 500));
+    } else {
+      return;
+    }
   }
 
   autoplayVariable.value = playIcon;
@@ -148,77 +152,128 @@ const AutoplayBtn = async () => {
 
 <template>
   <div id="loader">
+
     <LoaderComponent/>
+
   </div>
 
   <div id="morphDiv">
-    <div id="infoDisplay">
-      <div>
-        <h1 id="infoTextDisplay"> {{ danceName }}:</h1>
-      </div>
-      <div>
-        <span id="infoCounterDisplay"> {{ danceStepCounter }} / {{ danceStepLength }}</span>
-      </div>
+
+    <div id="infoCounterDisplayCounter">
+
+      <span id="infoCounterDisplay"> {{ danceStepCounter }} / {{ danceStepLength }}</span>
+
     </div>
 
     <div id="manLeftFoot" class="foot">
+
       <div id="manLeftFootToes" class="manToe">
+
         <span id="manLeftFootLetter" class="footLetter">L1</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div id="manLeftFootHeel" class="manHeel"></div>
+
     </div>
 
     <div id="manRightFoot" class="foot">
+
       <div id="manRightFootToes" class="manToe">
+
         <span id="manRightFootLetter" class="footLetter">R1</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div id="manRightFootHeel" class="manHeel"></div>
+
     </div>
 
     <div id="womanLeftFoot" class="foot">
+
       <div id="womanLeftFootToes" class="womanToe">
+
         <span id="womanLeftFootLetter" class="footLetter">L2</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
+
       <div class="womanHeelContainer">
+
         <div id="womanLeftFootHeel" class="womanHeel"></div>
+
       </div>
+
     </div>
 
     <div id="womanRightFoot" class="foot">
+
       <div id="womanRightFootToes" class="womanToe">
+
         <span id="womanRightFootLetter" class="footLetter">R2</span>
+
       </div>
+
       <div class="innerFootSpacer"></div>
       <div class="womanHeelContainer">
+
         <div id="womanRightFootHeel" class="womanHeel"></div>
+
       </div>
+
     </div>
+
   </div>
 
   <div id="controlsMainContainer">
+
+    <div>
+
+      <h1 id="infoTextDisplay"> {{ danceName }}</h1>
+
+    </div>
+
     <div id="controlsContainer">
+
       <button id="nextButton" class="controlsElement" @click="BackToBeginBtn">
+
         <img :src="skipLeftIcon" alt="Zurück zum Anfang">
+
       </button>
 
       <button id="backButton" class="controlsElement" @click="BackBtn">
+
         <img :src="arrowLeftIcon" alt="Einen Schritt nach vorne">
+
       </button>
 
       <button id="autoplayButton" class="controlsElement" @click="AutoplayBtn">
+
         <img :src="autoplayVariable" alt="Autoplay Funktion" id="autoplayImage">
+
       </button>
 
       <button id="nextButton" class="controlsElement" @click="NextBtn">
+
         <img :src="arrowRightIcon" alt="Einen Schritt weiter">
+
       </button>
 
       <button id="nextButton" class="controlsElement" @click="BackToEndBtn">
+
         <img :src="skipRightIcon" alt="Zum Ende">
+
       </button>
+
+    </div>
+
+    <div>
+
+      <RouterLink to="/mainpage">Nächste Schrittfolge</RouterLink>
+
     </div>
   </div>
 </template>
@@ -230,21 +285,11 @@ const AutoplayBtn = async () => {
   position: relative;
   display: none;
 
-  #infoDisplay {
+  #infoCounterDisplayCounter {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    margin: 0 10px 0 10px;
-
-    #infoCounterDisplay, #infoTextDisplay {
-      position: relative;
-      top: 1%;
-      margin: 0;
-      height: 5vh;
-      display: flex;
-      align-items: center;
-    }
+    margin-top: 1vh;
   }
 
   #manLeftFoot,
@@ -316,10 +361,12 @@ const AutoplayBtn = async () => {
 }
 
 #controlsMainContainer {
-  height: 10vh;
+  height: 8vh;
   display: none;
   padding: 10px;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2.5rem 0 2.5rem;
 
   #controlsContainer {
     background-color: $backgroundColorPurple;
@@ -345,7 +392,8 @@ const AutoplayBtn = async () => {
     }
 
     #autoplayButton {
-      background-color: $backgroundColorViolet;
+      width: 6.5vh;
+      height: 6.5vh;
     }
   }
 }

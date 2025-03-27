@@ -2,9 +2,9 @@
 import {ref, onMounted, onUnmounted} from "vue";
 import {RouterLink, useRouter} from "vue-router";
 
-import logoIcon from '../assets/logoIcon.svg';
-import searchIcon from '../assets/searchIcon.svg';
-import menuIcon from '../assets/menuIcon.svg';
+import logoIcon from '@/assets/icons/logoIcon.svg';
+import searchIcon from '@/assets/icons/searchIcon.svg';
+import menuIcon from '@/assets/icons/menuIcon.svg';
 
 const router = useRouter();
 const showMenu = ref(false);
