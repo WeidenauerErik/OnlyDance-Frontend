@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import searchIcon from '@/assets/icons/searchIcon.svg';
 </script>
 
 <template>
@@ -6,7 +7,7 @@
     <div id="searchBarContainerMainPage">
       <input type="text" id="searchBarInputMainPage">
       <button id="searchBarButtonMainPage">
-        <img src="../assets/searchIcon.png" alt="Search Icon">
+        <img :src="searchIcon" alt="Search Icon">
       </button>
     </div>
   </div>
@@ -34,7 +35,7 @@
 
     #searchBarInputMainPage {
       flex: 1;
-      border: 1px solid $colorPurple;
+      border: 1px solid $colorVioletDark;
       border-radius: 20px;
       height: 6vh;
       font-size: 15px;
@@ -72,7 +73,7 @@
     border-radius: 20px;
     width: 20vh;
     color: $colorWhite;
-    background-color: $backgroundColorViolet;
+    background-color: $colorVioletLight;
   }
 }
 </style>

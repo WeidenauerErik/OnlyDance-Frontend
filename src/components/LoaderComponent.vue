@@ -12,7 +12,7 @@
 <style lang="scss" scoped>
 #loaderContainer {
   position: relative;
-  height: 100vh;
+  height: 90vh;
 
   #loader {
     width: 20vh;
@@ -30,7 +30,7 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 5px solid $backgroundColorViolet;
+    border: 5px solid $colorVioletLight;
     animation: prixClipFix 1.5s linear infinite;
   }
 

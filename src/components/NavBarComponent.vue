@@ -39,8 +39,12 @@ onUnmounted(() => {
         </button>
       </div>
 
-      <RouterLink to="/login" class="routerLinksNavBar" id="loginNavBar">Login</RouterLink>
-      <RouterLink to="/signup" class="routerLinksNavBar" id="signUpNavBar">SignUp</RouterLink>
+      <div id="loginSignUpContainer">
+
+        <RouterLink to="/login" class="routerLinksNavBar" id="loginNavBar">Anmelden</RouterLink>
+        <RouterLink to="/signup" class="routerLinksNavBar" id="signUpNavBar">Registrieren</RouterLink>
+
+      </div>
 
       <img :src="menuIcon" id="menuIconNavBar" alt="Menu button" @click="showMenu = !showMenu">
 
@@ -62,7 +66,7 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: $backgroundColorViolet;
+  background-color: $colorVioletLight;
   height: 10vh;
 
   #logoContainerNavBar {
@@ -70,6 +74,7 @@ onUnmounted(() => {
     flex-direction: row;
     margin-left: 20px;
     text-decoration: none;
+    width: 20%;
 
     #logoNavBar {
       width: 50px;
@@ -87,7 +92,9 @@ onUnmounted(() => {
     flex-direction: row;
     align-items: center;
     position: relative;
-    justify-content: space-evenly;
+    justify-content: end;
+    margin-right: 1rem;
+    width: 80%;
 
     .routerLinksNavBar {
       text-decoration: none;
@@ -100,11 +107,11 @@ onUnmounted(() => {
       border: $colorWhite 1px solid;
       padding: 10px;
       border-radius: 10px;
-      margin: 0 20px 0 20px;
+      margin-right: 2rem;
     }
 
     #loginNavBar {
-      margin-left: 20px;
+      margin-left: 3rem;
     }
 
     #searchBarContainerNavBar {
@@ -119,7 +126,7 @@ onUnmounted(() => {
         border-radius: 20px;
         height: 5.5vh;
         font-size: 15px;
-        color: $colorPurple;
+        color: $colorVioletDark;
         box-sizing: border-box;
         outline: none;
         padding-left: 5px;
@@ -163,7 +170,7 @@ onUnmounted(() => {
 
       .routerLinksMenuNavBar {
         text-decoration: none;
-        color: $backgroundColorViolet;
+        color: $colorVioletLight;
       }
 
       #signUpMenuBar, #loginMenuBar {

@@ -9,6 +9,7 @@ import skipLeftIcon from '@/assets/icons/skipLeftIcon.svg';
 import skipRightIcon from '@/assets/icons/skipRightIcon.svg';
 import arrowLeftIcon from '@/assets/icons/arrowLeftIcon.svg';
 import arrowRightIcon from '@/assets/icons/arrowRightIcon.svg';
+import settingsIcon from '@/assets/icons/settingsIcon.svg';
 
 const stepCounter = ref<number>(0);
 const danceStepCounter = ref<number>(1);
@@ -54,6 +55,7 @@ const updateFeet = (step: Step) => {
 
 const resize = () => {
   const morphDiv = document.getElementById('morphDiv');
+
   if (morphDiv) {
     screenWidth = morphDiv.offsetWidth;
     screenHeight = morphDiv.offsetHeight;
@@ -82,13 +84,13 @@ onMounted(() => {
           controls.style.display = 'flex';
           loader.style.display = "none";
         }
-
         resize();
       });
 });
 
 const BackBtn = () => {
   autoplayActive.value = false;
+
   if (stepCounter.value > 0) {
     stepCounter.value--;
     danceStepCounter.value--;
@@ -98,6 +100,7 @@ const BackBtn = () => {
 
 const NextBtn = () => {
   autoplayActive.value = false;
+
   if (stepCounter.value < steps.value.length - 1) {
     stepCounter.value++;
     danceStepCounter.value++;
@@ -134,7 +137,7 @@ const AutoplayBtn = async () => {
   autoplayActive.value = true;
 
   while (stepCounter.value < steps.value.length - 1 && autoplayActive.value) {
-    if (autoplayActive.value === true) {
+    if (autoplayActive.value) {
       stepCounter.value++;
       danceStepCounter.value++;
       updateFeet(steps.value[stepCounter.value]);
@@ -147,15 +150,11 @@ const AutoplayBtn = async () => {
   autoplayVariable.value = playIcon;
   autoplayActive.value = false;
 };
-
 </script>
 
 <template>
-  <div id="loader">
 
-    <LoaderComponent/>
-
-  </div>
+  <LoaderComponent id="loader"/>
 
   <div id="morphDiv">
 
@@ -230,13 +229,13 @@ const AutoplayBtn = async () => {
 
   <div id="controlsMainContainer">
 
-    <div>
+    <div class="controlsContainerElement">
 
       <h1 id="infoTextDisplay"> {{ danceName }}</h1>
 
     </div>
 
-    <div id="controlsContainer">
+    <div id="controlsContainer" class="controlsContainerElement">
 
       <button id="nextButton" class="controlsElement" @click="BackToBeginBtn">
 
@@ -270,9 +269,9 @@ const AutoplayBtn = async () => {
 
     </div>
 
-    <div>
+    <div class="controlsContainerElement" id="controlsSettingsContainer">
 
-      <RouterLink to="/mainpage">Nächste Schrittfolge</RouterLink>
+      <img :src="settingsIcon" alt="Einstellungen" id="settingsIcon">
 
     </div>
   </div>
@@ -297,7 +296,7 @@ const AutoplayBtn = async () => {
   #womanLeftFoot,
   #womanRightFoot {
     position: absolute;
-    z-index: 99;
+    z-index: 10;
 
     .footLetter {
       color: $colorWhite;
@@ -368,10 +367,19 @@ const AutoplayBtn = async () => {
   align-items: center;
   margin: 0 2.5rem 0 2.5rem;
 
+  .controlsContainerElement {
+    min-width: 30%;
+  }
+
+  #controlsSettingsContainer {
+    display: flex;
+    justify-content: end;
+  }
+
   #controlsContainer {
-    background-color: $backgroundColorPurple;
+    background-color: $colorPurpleLight;
     width: 30%;
-    height: 8vh;
+    height: 7vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -384,17 +392,22 @@ const AutoplayBtn = async () => {
       border-radius: 50%;
       width: 6vh;
       height: 6vh;
-      background-color: $backgroundColorPurple;
+      background-color: $colorPurpleLight;
 
       &:hover {
-        background-color: $backgroundColorViolet;
+        background-color: $colorVioletLight;
       }
     }
+  }
 
-    #autoplayButton {
-      width: 6.5vh;
-      height: 6.5vh;
-    }
+  #settingsIcon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+  }
+
+  #nextStepsequence {
+    text-decoration: none;
   }
 }
 </style>
