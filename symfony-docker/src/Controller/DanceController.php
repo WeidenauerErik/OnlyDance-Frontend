@@ -7,12 +7,13 @@ use App\Form\DanceType;
 use App\Repository\DanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/dance')]
-final class DanceController extends AbstractController
+ class DanceController extends AbstractController
 {
     #[Route(name: 'app_dance_index', methods: ['GET'])]
     public function index(DanceRepository $danceRepository): Response
@@ -42,7 +43,7 @@ final class DanceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_dance_show', methods: ['GET'])]
+    #[Route('/{/{id<\d+>}', name: 'app_dance_show', methods: ['GET'])]
     public function show(Dance $dance): Response
     {
         return $this->render('dance/show.html.twig', [
@@ -78,6 +79,20 @@ final class DanceController extends AbstractController
 
         return $this->redirectToRoute('app_dance_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/dances', name: 'app_dance_json', methods: ['GET'])]
+    public function getDances(DanceRepository $danceRepository): JsonResponse
+    {
 
-    
+        return $this->json(
+            array_map(fn($dance) => [
+                'id' => $dance->getId(),
+                'name' => $dance->getName(),
+                'tact' => $dance->getTact(),
+                'difficulty' => $dance->getDifficulty(),
+                'defaultBPM' => $dance->getDefaultBPM(),
+            ], $danceRepository->findAll())
+        );
+
+    }
+
 }
