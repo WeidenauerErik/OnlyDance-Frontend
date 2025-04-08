@@ -17,3 +17,20 @@ export interface Step {
         rightFoot: FootStep;
     };
 }
+
+export interface FootAnimationProps {
+    currentStep: Step | null;
+    loaderIsVisible: boolean;
+    danceStepCounter: number;
+    danceStepLength: number;
+    autoplayVariable: string;
+    danceName: string;
+}
+
+export interface FootAnimationEmits {
+    'backToBeginBtn': void;
+    'backBtn': void;
+    'autoplayBtn': void;
+    'nextBtn': void;
+    'backToEndBtn': void;
+}
