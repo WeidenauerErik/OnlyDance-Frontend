@@ -6,6 +6,7 @@ use App\Repository\StepsequenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: StepsequenceRepository::class)]
 class Stepsequence
@@ -13,9 +14,11 @@ class Stepsequence
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['stepsequence:read'])]
     private ?string $name = null;
 
     /**
@@ -25,16 +28,19 @@ class Stepsequence
     private Collection $checklists;
 
     #[ORM\ManyToOne(inversedBy: 'stepsequences')]
+    #[Groups(['stepsequence:read'])]
     private ?Badge $badge = null;
 
     #[ORM\ManyToOne(inversedBy: 'stepsequences')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['stepsequence:read'])]
     private ?Dance $dance = null;
 
     /**
      * @var Collection<int, Step>
      */
     #[ORM\OneToMany(targetEntity: Step::class, mappedBy: 'stepsequence')]
+    #[Groups(['stepsequence:read'])]
     private Collection $howquick;
 
     public function __construct()

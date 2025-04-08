@@ -4,80 +4,105 @@ namespace App\Entity;
 
 use App\Repository\StepRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: StepRepository::class)]
+
 class Step
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'howquick')]
     #[ORM\JoinColumn(nullable: false)]
+
     private ?Stepsequence $stepsequence = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?int $howquick = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $m1_x = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $m1_y = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $m1_rotate = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $m1_heel = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $m1_toe = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $m2_x = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $m2_y = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $m2_rotate = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $m2_heel = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $m2_toe = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $w1_x = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $w1_y = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $w1_rotate = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $w1_heel = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $w1_toe = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $w2_x = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $w2_y = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?float $w2_rotate = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $w2_heel = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?bool $w2_toe = null;
 
     public function getId(): ?int

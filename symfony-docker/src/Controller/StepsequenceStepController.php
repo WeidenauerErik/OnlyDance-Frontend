@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class StepsequenceStepController extends AbstractController
 {
@@ -78,95 +79,40 @@ class StepsequenceStepController extends AbstractController
         return new JsonResponse(['status' => 'Dance and steps saved'], 201);
     }
 
-    #[Route('/stepsequence/get/{id}', name: 'app_step_byID', methods: ['GET'])]
-    public function getStepsequenceByID( Stepsequence $stepsequence) :JsonResponse
+    #[Route('/stepsequence/get/{id}', name: 'app_step_byId', methods: ['GET'])]
+    public function getStepsequenceByID(SerializerInterface $serializer, Stepsequence $stepsequence) :JsonResponse
     {
-        $steps = [];
-        foreach ($stepsequence->getHowquick() as $step) {
-            $steps[] = [
-                'howquick' => $step->getHowquick(),
 
-                'm1_x' => $step->getM1X(),
-                'm1_y' => $step->getM1Y(),
-                'm1_rotate' => $step->getM1Rotate(),
-                'm1_heel' => $step->isM1Heel(),
-                'm1_toe' => $step->isM1Toe(),
-
-                'm2_x' => $step->getM2X(),
-                'm2_y' => $step->getM2Y(),
-                'm2_rotate' => $step->getM2Rotate(),
-                'm2_heel' => $step->isM2Heel(),
-                'm2_toe' => $step->isM2Toe(),
-
-                'w1_x' => $step->getW1X(),
-                'w1_y' => $step->getW1Y(),
-                'w1_rotate' => $step->isW1Rotate(),
-                'w1_heel' => $step->isW1Heel(),
-                'w1_toe' => $step->isW1Toe(),
-
-                'w2_x' => $step->getW2X(),
-                'w2_y' => $step->getW2Y(),
-                'w2_rotate' => $step->getW2Rotate(),
-                'w2_heel' => $step->isW2Heel(),
-                'w2_toe' => $step->isW2Toe(),
-            ];
-        }
-        return $this->json(["name" => $stepsequence->getName(),
-            "badge" => $stepsequence->getBadge()->getName(),
-            "dance" => $stepsequence->getDance()->getName(),
-            "steps" =>$steps]);
-
+        $response = $serializer->serialize(
+            $stepsequence,
+            'json',
+            ['groups' => ['stepsequence:read']]
+        );
+        return JsonResponse::fromJsonString($response);
     }
     #[Route('/stepsequence/get', name: 'app_step_get', methods: ['GET'])]
-    public function getStepsequences(StepsequenceRepository $stepsequenceRepository) :JsonResponse
+    public function getStepsequences(SerializerInterface $serializer, StepsequenceRepository $stepsequenceRepository) :JsonResponse
     {
         $stepsequences = $stepsequenceRepository->findAll();
-        $data = [];
+        $response = $serializer->serialize(
+            $stepsequences,
+            'json',
+            ['groups' => ['stepsequence:read']]
+        );
+        return JsonResponse::fromJsonString($response);
 
-        foreach ($stepsequences as $sequence) {
-            $steps = [];
 
-            foreach ($sequence->getHowquick() as $step) {
-                $steps[] = [
-                    'howquick' => $step->getHowquick(),
-
-                    'm1_x' => $step->getM1X(),
-                    'm1_y' => $step->getM1Y(),
-                    'm1_rotate' => $step->getM1Rotate(),
-                    'm1_heel' => $step->isM1Heel(),
-                    'm1_toe' => $step->isM1Toe(),
-
-                    'm2_x' => $step->getM2X(),
-                    'm2_y' => $step->getM2Y(),
-                    'm2_rotate' => $step->getM2Rotate(),
-                    'm2_heel' => $step->isM2Heel(),
-                    'm2_toe' => $step->isM2Toe(),
-
-                    'w1_x' => $step->getW1X(),
-                    'w1_y' => $step->getW1Y(),
-                    'w1_rotate' => $step->isW1Rotate(),
-                    'w1_heel' => $step->isW1Heel(),
-                    'w1_toe' => $step->isW1Toe(),
-
-                    'w2_x' => $step->getW2X(),
-                    'w2_y' => $step->getW2Y(),
-                    'w2_rotate' => $step->getW2Rotate(),
-                    'w2_heel' => $step->isW2Heel(),
-                    'w2_toe' => $step->isW2Toe(),
-                ];
-            }
-
-            $data[] = [
-                'id' => $sequence->getId(),
-                'name' => $sequence->getName(),
-                'badge' => $sequence->getBadge()->getName(),
-                'dance' => $sequence->getDance()->getName(),
-                'steps' => $steps
-            ];
-        }
-
-        return $this->json($data);
     }
 
+    #[Route('/stepsequence/badge/{id}', name: 'app_step_get_by_badge', methods: ['GET'])]
+    public function getStepsequencesByBadge(SerializerInterface $serializer, Badge $badge) :JsonResponse
+    {
+        $response = $serializer->serialize(
+            $badge->getStepsequences(),
+            'json',
+            ['groups' => ['stepsequence:read']]
+        );
+        return JsonResponse::fromJsonString($response);
+    }
 
 }

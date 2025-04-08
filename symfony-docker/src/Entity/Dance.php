@@ -6,6 +6,7 @@ use App\Repository\DanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: DanceRepository::class)]
 class Dance
@@ -13,9 +14,11 @@ class Dance
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['stepsequence:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -25,6 +28,7 @@ class Dance
     private ?int $difficulty = null;
 
     #[ORM\Column]
+    #[Groups(['stepsequence:read'])]
     private ?int $defaultBPM = null;
 
     /**
