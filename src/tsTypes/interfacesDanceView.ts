@@ -1,21 +1,32 @@
-export interface FootStep {
-    height: number;
-    width: number;
-    rotate: number;
-    footToesActive: boolean;
-    footHeelActive: boolean;
+export interface Step {
+    badge: string;
+    dance: string;
+    name: string;
+    steps: FootStep[];
 }
 
-export interface Step {
-    howQuick: number;
-    man: {
-        leftFoot: FootStep;
-        rightFoot: FootStep;
-    };
-    woman: {
-        leftFoot: FootStep;
-        rightFoot: FootStep;
-    };
+export interface FootStep {
+    howquick: number;
+    m1_x: number;
+    m1_y: number;
+    m1_rotate: number;
+    m1_toe: boolean;
+    m1_heel: boolean;
+    m2_x: number;
+    m2_y: number;
+    m2_rotate: number;
+    m2_toe: boolean;
+    m2_heel: boolean;
+    w1_x: number;
+    w1_y: number;
+    w1_rotate: number;
+    w1_toe: boolean;
+    w1_heel: boolean;
+    w2_x: number;
+    w2_y: number;
+    w2_rotate: number;
+    w2_toe: boolean;
+    w2_heel: boolean;
 }
 
 export interface FootAnimationProps {
@@ -25,6 +36,7 @@ export interface FootAnimationProps {
     danceStepLength: number;
     autoplayVariable: string;
     danceName: string;
+    showEditBtn: boolean;
 }
 
 export interface FootAnimationEmits {
@@ -33,4 +45,5 @@ export interface FootAnimationEmits {
     'autoplayBtn': void;
     'nextBtn': void;
     'backToEndBtn': void;
+    'showEdits': void;
 }

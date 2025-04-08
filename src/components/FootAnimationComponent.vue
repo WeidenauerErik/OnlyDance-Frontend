@@ -46,30 +46,44 @@ const womanLeftFootHeel = ref<HTMLElement | null>(null);
 const womanRightFootToes = ref<HTMLElement | null>(null);
 const womanRightFootHeel = ref<HTMLElement | null>(null);
 
-const updateFeet = (step: Step) => {
-  howQuick.value = step.howQuick;
+const updateFeet = (step: FootStep) => {
+  howQuick.value = step.howquick;
 
-  const updateFoot = (footRef: Ref<HTMLElement | null>, footData: FootStep, toesRef: Ref<HTMLElement | null>, heelRef: Ref<HTMLElement | null>) => {
-    isLoaderVisible.value = false;
+  if (manLeftFoot.value && manLeftFootHeel.value && manLeftFootToes.value) {
+    manLeftFoot.value.style.transition = `top ${step.howquick}s ease, left ${step.howquick}s ease, transform ${step.howquick}s ease`;
+    manLeftFoot.value.style.top = `${screenHeight * step.m1_y - footHeightDifferenz}px`;
+    manLeftFoot.value.style.left = `${screenWidth * step.m1_x - footWidthDifferenz}px`;
+    manLeftFoot.value.style.transform = `rotate(${step.m1_rotate}deg)`;
+    manLeftFootToes.value.style.backgroundColor = step.m1_toe ? '#73168C' : '#875595';
+    manLeftFootHeel.value.style.backgroundColor = step.m1_heel ? '#73168C' : '#875595';
+  }
 
-    if (footRef.value) {
-        footRef.value.style.transition = `top ${step.howQuick}s ease, left ${step.howQuick}s ease, transform ${step.howQuick}s ease`;
-        footRef.value.style.top = `${screenHeight * footData.height - footHeightDifferenz}px`;
-        footRef.value.style.left = `${screenWidth * footData.width - footWidthDifferenz}px`;
-        footRef.value.style.transform = `rotate(${footData.rotate}deg)`;
-    }
-    if (toesRef.value) {
-      toesRef.value.style.backgroundColor = footData.footToesActive ? '#73168C' : '#875595';
-    }
-    if (heelRef.value) {
-      heelRef.value.style.backgroundColor = footData.footHeelActive ? '#73168C' : '#875595';
-    }
-  };
+  if (manRightFoot.value && manRightFootHeel.value && manRightFootToes.value) {
+    manRightFoot.value.style.transition = `top ${step.howquick}s ease, left ${step.howquick}s ease, transform ${step.howquick}s ease`;
+    manRightFoot.value.style.top = `${screenHeight * step.m2_y - footHeightDifferenz}px`;
+    manRightFoot.value.style.left = `${screenWidth * step.m2_x - footWidthDifferenz}px`;
+    manRightFoot.value.style.transform = `rotate(${step.m2_rotate}deg)`;
+    manRightFootToes.value.style.backgroundColor = step.m2_toe ? '#73168C' : '#875595';
+    manRightFootHeel.value.style.backgroundColor = step.m2_heel ? '#73168C' : '#875595';
+  }
 
-  updateFoot(manLeftFoot, step.man.leftFoot, manLeftFootToes, manLeftFootHeel);
-  updateFoot(manRightFoot, step.man.rightFoot, manRightFootToes, manRightFootHeel);
-  updateFoot(womanLeftFoot, step.woman.leftFoot, womanLeftFootToes, womanLeftFootHeel);
-  updateFoot(womanRightFoot, step.woman.rightFoot, womanRightFootToes, womanRightFootHeel);
+  if (womanLeftFoot.value && womanLeftFootHeel.value && womanLeftFootToes.value) {
+    womanLeftFoot.value.style.transition = `top ${step.howquick}s ease, left ${step.howquick}s ease, transform ${step.howquick}s ease`;
+    womanLeftFoot.value.style.top = `${screenHeight * step.w1_y - footHeightDifferenz}px`;
+    womanLeftFoot.value.style.left = `${screenWidth * step.w1_x - footWidthDifferenz}px`;
+    womanLeftFoot.value.style.transform = `rotate(${step.w1_rotate}deg)`;
+    womanLeftFootToes.value.style.backgroundColor = step.w1_toe ? '#73168C' : '#875595';
+    womanLeftFootHeel.value.style.backgroundColor = step.w1_heel ? '#73168C' : '#875595';
+  }
+
+  if (womanRightFoot.value && womanRightFootHeel.value && womanRightFootToes.value) {
+    womanRightFoot.value.style.transition = `top ${step.howquick}s ease, left ${step.howquick}s ease, transform ${step.howquick}s ease`;
+    womanRightFoot.value.style.top = `${screenHeight * step.w2_y - footHeightDifferenz}px`;
+    womanRightFoot.value.style.left = `${screenWidth * step.w2_x - footWidthDifferenz}px`;
+    womanRightFoot.value.style.transform = `rotate(${step.w2_rotate}deg)`;
+    womanRightFootToes.value.style.backgroundColor = step.w2_toe ? '#73168C' : '#875595';
+    womanRightFootHeel.value.style.backgroundColor = step.w2_heel ? '#73168C' : '#875595';
+  }
 };
 
 const resize = () => {
@@ -142,7 +156,10 @@ onUnmounted(() => {
 
     <div class="controlsContainerElement">
 
-      <h1 id="infoTextDisplay"> {{ props.danceName }}</h1>
+      <h1 id="infoTextDisplay" v-if="!props.showEditBtn"> {{ props.danceName }}</h1>
+      <button @click="$emit('showEdits')">
+        add
+      </button>
 
     </div>
 

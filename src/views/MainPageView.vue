@@ -1,5 +1,20 @@
 <script setup lang="ts">
 import searchIcon from '@/assets/icons/searchIcon.svg';
+import {type DanceTypes} from '@/tsTypes/interfacesMainPageView.ts';
+import {nextTick, onBeforeMount, onMounted, type Ref, ref} from "vue";
+
+const url = import.meta.env.VITE_ServerIP + "/dance/dances"
+let dances = ref<DanceTypes[]>([]);
+
+onMounted(() => {
+  fetch(url)
+      .then(response => response.json())
+      .then((data: DanceTypes) => {
+        dances.value = data;
+        console.log(dances);
+        nextTick();
+      });
+})
 </script>
 
 <template>
@@ -12,10 +27,14 @@ import searchIcon from '@/assets/icons/searchIcon.svg';
     </div>
   </div>
   <div id="danceContainerMainPage">
-    <div class="danceInfoContainerMainPage">
-      <h3>Walzer</h3>
-      <span> x x x x x</span>
-      <img src="" alt="Foto von Abzeichen">
+    <div class="danceInfoOverContainerMainPage" v-for="dance in dances">
+      <div class="danceInfoContainerMainPage">
+        <h3>{{ dance.name }}</h3>
+        <div>
+          <span v-for="index in dance.difficulty" key="index">x</span>
+        </div>
+        <span>{{ dance.defaultBPM }} BPM</span>
+      </div>
     </div>
   </div>
 </template>
@@ -62,18 +81,27 @@ import searchIcon from '@/assets/icons/searchIcon.svg';
     }
   }
 }
+
 #danceContainerMainPage {
   padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 
-  .danceInfoContainerMainPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .danceInfoOverContainerMainPage {
+    padding: 20px;
+    .danceInfoContainerMainPage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-    border-radius: 20px;
-    width: 20vh;
-    color: $colorWhite;
-    background-color: $colorVioletLight;
+      border-radius: 20px;
+      width: 20vh;
+      height: 20vh;
+      color: $colorWhite;
+      background-color: $colorVioletLight;
+    }
   }
 }
 </style>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import FootAnimationComponent from "@/components/FootAnimationComponent.vue";
 import {nextTick, onMounted, ref} from "vue";
-import type {Step} from "@/tsTypes/interfacesDanceView.ts";
+import type {FootStep, Step} from "@/tsTypes/interfacesDanceView.ts";
 
 import playIcon from "@/assets/icons/playIcon.svg";
 import pauseIcon from "@/assets/icons/pauseIcon.svg";
+
+const url = import.meta.env.VITE_ServerIP + '/stepsequence/get/1';
 
 const steps = ref<Step[]>([]);
 const autoplayActive = ref<boolean>(false);
@@ -12,38 +14,32 @@ const autoplayActive = ref<boolean>(false);
 const autoplayVariable = ref<string>(playIcon);
 
 //for properties
-let currentStep = ref<Step | null>(null);
+let currentStep = ref<FootStep | null>(null);
 let loaderIsVisible = ref<boolean>(true);
 const danceStepCounter = ref<number>(0);
 const danceStepLength = ref<number>(0);
 const danceName = ref<string>("");
 
 onMounted(() => {
-  //fetch('https://onlydance.onrender.com/')
-  fetch('http://localhost:4000')
+  fetch(url)
       .then((res) => res.json())
-      .then((data: Step[]) => {
-        steps.value = data;
-        danceStepLength.value = data.length;
+      .then((data: Step) => {
+        steps.value = data.steps;
+        danceStepLength.value = data.steps.length;
         danceStepCounter.value = 0;
         currentStep.value = steps.value[danceStepCounter.value];
-        danceName.value = 'Walzer';
-        //window.addEventListener('resize', resize);
+        danceName.value = data.name;
       })
       .then(async () => {
         await nextTick();
-        console.log(loaderIsVisible.value)
         loaderIsVisible.value = false;
-        console.log(loaderIsVisible.value)
         await nextTick();
-        //resize();
       });
 });
 
 const backToBeginBtn = () => {
   autoplayActive.value = false;
   danceStepCounter.value = 0;
-  //updateFeet(steps.value[danceStepCounter.value]);
   currentStep.value = steps.value[danceStepCounter.value];
 };
 
@@ -52,7 +48,6 @@ const backBtn = () => {
 
   if (danceStepCounter.value > 0) {
     danceStepCounter.value--;
-    //updateFeet(steps.value[danceStepCounter.value]);
     currentStep.value = steps.value[danceStepCounter.value];
   }
 };
@@ -62,7 +57,6 @@ const nextBtn = () => {
 
   if (danceStepCounter.value < steps.value.length - 1) {
     danceStepCounter.value++;
-    //updateFeet(steps.value[danceStepCounter.value]);
     currentStep.value = steps.value[danceStepCounter.value];
   }
 };
@@ -83,7 +77,6 @@ const AutoplayBtn = async () => {
   while (danceStepCounter.value < steps.value.length - 1 && autoplayActive.value) {
     if (autoplayActive.value) {
       danceStepCounter.value++;
-      //updateFeet(steps.value[danceStepCounter.value]);
       currentStep.value = steps.value[danceStepCounter.value];
       await new Promise((resolve) => setTimeout(resolve, steps.value[danceStepCounter.value].howQuick * 500));
     } else {
@@ -98,14 +91,13 @@ const AutoplayBtn = async () => {
 const backToEndBtn = () => {
   autoplayActive.value = false;
   danceStepCounter.value = steps.value.length - 1;
-  //updateFeet(steps.value[danceStepCounter.value]);
   currentStep.value = steps.value[danceStepCounter.value];
 };
 </script>
 
 <template>
 
-<FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter' :danceStepLength='danceStepLength' :currentStep='currentStep || null' :autoplayVariable='autoplayVariable' :danceName='danceName' @backToBeginBtn="backToBeginBtn" @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn" @backToEndBtn="backToEndBtn"/>
+<FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter' :danceStepLength='danceStepLength' :currentStep='currentStep || null' :autoplayVariable='autoplayVariable' :danceName='danceName' :showEditBtn='false' @backToBeginBtn="backToBeginBtn" @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn" @backToEndBtn="backToEndBtn"/>
 
 </template>
 
