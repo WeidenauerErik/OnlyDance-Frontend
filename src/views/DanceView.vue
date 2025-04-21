@@ -6,9 +6,10 @@ import type {FootStep, Step} from "@/tsTypes/interfacesDanceView.ts";
 import playIcon from "@/assets/icons/playIcon.svg";
 import pauseIcon from "@/assets/icons/pauseIcon.svg";
 
-const url = import.meta.env.VITE_ServerIP + '/stepsequence/get/1';
+//const url = import.meta.env.VITE_ServerIP + '/stepsequence/get/1';
+const url = '/ServerFiles/basicStepSequence.json';
 
-const steps = ref<Step[]>([]);
+const steps = ref<Step>();
 const autoplayActive = ref<boolean>(false);
 
 const autoplayVariable = ref<string>(playIcon);
@@ -27,7 +28,7 @@ onMounted(() => {
         steps.value = data.steps;
         danceStepLength.value = data.steps.length;
         danceStepCounter.value = 0;
-        currentStep.value = steps.value[danceStepCounter.value];
+        currentStep.value = data.steps[danceStepCounter.value];
         danceName.value = data.name;
       })
       .then(async () => {
@@ -97,7 +98,7 @@ const backToEndBtn = () => {
 
 <template>
 
-<FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter' :danceStepLength='danceStepLength' :currentStep='currentStep || null' :autoplayVariable='autoplayVariable' :danceName='danceName' :showEditBtn='false' @backToBeginBtn="backToBeginBtn" @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn" @backToEndBtn="backToEndBtn"/>
+<FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter' :danceStepLength='danceStepLength' :currentStep='currentStep || null' :autoplayVariable='autoplayVariable' :danceName='danceName' @backToBeginBtn="backToBeginBtn" @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn" @backToEndBtn="backToEndBtn"/>
 
 </template>
 

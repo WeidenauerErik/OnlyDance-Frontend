@@ -14,11 +14,9 @@ import arrowRightIcon from '@/assets/icons/arrowRightIcon.svg';
 import settingsIcon from '@/assets/icons/settingsIcon.svg';
 
 const props = defineProps<FootAnimationProps>();
-defineEmits<FootAnimationEmits>();
+const emit = defineEmits<FootAnimationEmits>();
 
-
-const isLoaderVisible = ref(props.loaderIsVisible);
-
+const stepSequenceName = ref<string>('');
 
 const footHeightDifferenz = 55;
 const footWidthDifferenz = 25;
@@ -106,6 +104,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  {{stepSequenceName}}
   <span v-if="props.loaderIsVisible">Loading ...</span>
 
   <div id="morphDiv" ref="morphDivRef" v-if="!props.loaderIsVisible">
@@ -157,9 +156,7 @@ onUnmounted(() => {
     <div class="controlsContainerElement">
 
       <h1 id="infoTextDisplay" v-if="!props.showEditBtn"> {{ props.danceName }}</h1>
-      <button @click="$emit('showEdits')">
-        add
-      </button>
+      <input type="text" v-if="props.showEditBtn" placeholder="Tanzschrittname" @input="editStepSequenceName">
 
     </div>
 

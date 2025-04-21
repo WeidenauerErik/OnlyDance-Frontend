@@ -1,0 +1,53 @@
+{
+  "name": "baldBlackman",
+  "badge": "Bronze",
+  "dance": "Wiener Walzer",
+  "steps": [
+    {
+      "howquick": 1,
+      "m1_x": 0.4,
+      "m1_y": 0.4,
+      "m1_rotate": 0,
+      "m1_heel": true,
+      "m1_toe": false,
+      "m2_x": 0.6,
+      "m2_y": 0.4,
+      "m2_rotate": 0,
+      "m2_heel": true,
+      "m2_toe": false,
+      "w1_x": 0.4,
+      "w1_y": 0.6,
+      "w1_rotate": 180,
+      "w1_heel": true,
+      "w1_toe": true,
+      "w2_x": 0.6,
+      "w2_y": 0.6,
+      "w2_rotate": 180,
+      "w2_heel": false,
+      "w2_toe": false
+    },
+    {
+      "howquick": 1,
+      "m1_x": 1,
+      "m1_y": 1,
+      "m1_rotate": 90,
+      "m1_heel": true,
+      "m1_toe": false,
+      "m2_x": 1,
+      "m2_y": 1,
+      "m2_rotate": 90,
+      "m2_heel": true,
+      "m2_toe": false,
+      "w1_x": 1,
+      "w1_y": 1,
+      "w1_rotate": 90,
+      "w1_heel": true,
+      "w1_toe": true,
+      "w2_x": 0.5,
+      "w2_y": 1.5,
+      "w2_rotate": 90,
+      "w2_heel": false,
+      "w2_toe": false
+    }
+  ]
+}

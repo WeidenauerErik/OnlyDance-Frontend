@@ -46,4 +46,5 @@ export interface FootAnimationEmits {
     'nextBtn': void;
     'backToEndBtn': void;
     'showEdits': void;
+    'editStepSequenceName': void;
 }

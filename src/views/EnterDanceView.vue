@@ -1,51 +1,52 @@
 <script setup lang="ts">
 import {nextTick, onMounted, type Ref, ref, watch} from "vue";
 import FootAnimationComponent from "@/components/FootAnimationComponent.vue";
-import type {Step} from "@/tsTypes/interfacesDanceView.ts";
+import type {FootStep, Step} from "@/tsTypes/interfacesDanceView.ts";
 
 import playIcon from "@/assets/icons/playIcon.svg";
 import pauseIcon from "@/assets/icons/pauseIcon.svg";
 
-const steps = ref<Step[]>([]);
+const steps = ref<Step>([]);
 const autoplayActive = ref<boolean>(false);
 
 const autoplayVariable = ref<string>(playIcon);
 
 //for properties
-const currentStep = ref<Step | null>(null);
+const currentStep = ref<FootStep | null>(null);
 const loaderIsVisible = false;
 const danceStepCounter = ref<number>(0);
-const danceStepLength = ref<number>(0);
+const danceStepLength = ref<number>(1);
 const danceName = ref<string>("");
 
 const showInputs = ref<boolean>(false);
 
 const howQuick = ref<Number>(0);
-const m1_x = ref<number>(0);
-const m1_y = ref<number>(0)
+
+const m1_x = ref<number>(0.4);
+const m1_y = ref<number>(0.6)
 const m1_rotate = ref<number>(0);
-const m1_toe = ref<number>(0);
-const m1_heel = ref<number>(0);
+const m1_toe = ref<true>(true);
+const m1_heel = ref<true>(true);
 
-const m2_x = ref<number>(0);
-const m2_y = ref<number>(0)
+const m2_x = ref<number>(0.6);
+const m2_y = ref<number>(0.6)
 const m2_rotate = ref<number>(0);
-const m2_toe = ref<number>(0);
-const m2_heel = ref<number>(0);
+const m2_toe = ref<true>(true);
+const m2_heel = ref<true>(true);
 
-const w1_x = ref<number>(0);
-const w1_y = ref<number>(0)
-const w1_rotate = ref<number>(0);
-const w1_toe = ref<number>(0);
-const w1_heel = ref<number>(0);
+const w1_x = ref<number>(0.4);
+const w1_y = ref<number>(0.3)
+const w1_rotate = ref<number>(180);
+const w1_toe = ref<boolean>(true);
+const w1_heel = ref<boolean>(true);
 
-const w2_x = ref<number>(0);
-const w2_y = ref<number>(0)
-const w2_rotate = ref<number>(0);
-const w2_toe = ref<number>(0);
-const w2_heel = ref<number>(0);
+const w2_x = ref<number>(0.6);
+const w2_y = ref<number>(0.3)
+const w2_rotate = ref<number>(180);
+const w2_toe = ref<boolean>(true);
+const w2_heel = ref<boolean>(true);
 
-const makeCurrentStep = (): Step => {
+const makeCurrentStep = (): FootStep => {
   return {
     howquick: howQuick.value,
     m1_x: m1_x.value,
@@ -71,7 +72,7 @@ const makeCurrentStep = (): Step => {
   };
 };
 
-watch([howQuick,m1_x,m1_y,m1_rotate,m1_toe,m1_heel,m2_x,m2_y,m2_rotate,m2_toe,m2_heel,w1_x,w1_y,w1_rotate,w1_toe,w1_heel,w2_x,w2_y,w2_rotate,w2_toe,w2_heel], () => currentStep.value = makeCurrentStep());
+watch([howQuick, m1_x, m1_y, m1_rotate, m1_toe, m1_heel, m2_x, m2_y, m2_rotate, m2_toe, m2_heel, w1_x, w1_y, w1_rotate, w1_toe, w1_heel, w2_x, w2_y, w2_rotate, w2_toe, w2_heel], () => currentStep.value = makeCurrentStep());
 
 onMounted(() => {
   currentStep.value = makeCurrentStep()
@@ -134,91 +135,66 @@ const backToEndBtn = () => {
   danceStepCounter.value = steps.value.length - 1;
   currentStep.value = steps.value[danceStepCounter.value];
 };
-
-const showEdits = () => {
-  if (showInputs.value) showInputs.value = false;
-  else showInputs.value = true;
-}
 </script>
 
 <template>
   <FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter'
                           :danceStepLength='danceStepLength' :currentStep='currentStep || null'
-                          :autoplayVariable='autoplayVariable' :danceName='danceName' :showEditBtn='true' @backToBeginBtn="backToBeginBtn"
+                          :autoplayVariable='autoplayVariable' :danceName='danceName' :showEditBtn='true'
+                          @backToBeginBtn="backToBeginBtn"
                           @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn"
-                          @backToEndBtn="backToEndBtn" @showEdits="showEdits" />
+                          @backToEndBtn="backToEndBtn"/>
 
-  <div v-if="showInputs" class="overlay">
-    <div class="popup">
-      <label>howQuick: <input v-model="howQuick" type="number" step="0.1" /></label>
-
-      <label>m1_x: <input v-model="m1_x" type="range" min="0" max="1" step="0.01" /></label>
-      <label>m1_y: <input v-model="m1_y" type="range" min="0" max="1" step="0.01" /></label>
-      <label>m1_rotate: <input v-model="m1_rotate" type="number" /></label>
-      <label>m1_toe: <input v-model="m1_toe" type="number" /></label>
-      <label>m1_heel: <input v-model="m1_heel" type="number" /></label>
-
-      <label>m2_x: <input v-model="m2_x" type="range" min="0" max="1" step="0.01" /></label>
-      <label>m2_y: <input v-model="m2_y" type="range" min="0" max="1" step="0.01" /></label>
-      <label>m2_rotate: <input v-model="m2_rotate" type="number" /></label>
-      <label>m2_toe: <input v-model="m2_toe" type="number" /></label>
-      <label>m2_heel: <input v-model="m2_heel" type="number" /></label>
-
-      <label>w1_x: <input v-model="w1_x" type="range" min="0" max="1" step="0.01" /></label>
-      <label>w1_y: <input v-model="w1_y" type="range" min="0" max="1" step="0.01" /></label>
-      <label>w1_rotate: <input v-model="w1_rotate" type="number" /></label>
-      <label>w1_toe: <input v-model="w1_toe" type="number" /></label>
-      <label>w1_heel: <input v-model="w1_heel" type="number" /></label>
-
-      <label>w2_x: <input v-model="w2_x" type="range" min="0" max="1" step="0.01" /></label>
-      <label>w2_y: <input v-model="w2_y" type="range" min="0" max="1" step="0.01" /></label>
-      <label>w2_rotate: <input v-model="w2_rotate" type="number" /></label>
-      <label>w2_toe: <input v-model="w2_toe" type="number" /></label>
-      <label>w2_heel: <input v-model="w2_heel" type="number" /></label>
+  <div class="overlay">
+    <label>howQuick: <input v-model="howQuick" type="number" step="0.1"/></label>
+    <div id='inputContainer'>
+      <div class="inputContainerElements">
+        <label class="inputContainerInnerElements">m1_x: <input v-model="m1_x" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">m1_y: <input v-model="m1_y" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">m1_rotate: <input v-model="m1_rotate" type="number" step="1" min="0" max="360"/></label>
+        <label class="inputContainerInnerElements">m1_toe: <input v-model="m1_toe" type="checkbox"/></label>
+        <label class="inputContainerInnerElements">m1_heel: <input v-model="m1_heel" type="checkbox"/></label>
+      </div>
+      <div class="inputContainerElements">
+        <label class="inputContainerInnerElements">m2_x: <input v-model="m2_x" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">m2_y: <input v-model="m2_y" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">m2_rotate: <input v-model="m2_rotate" type="number" step="1" min="0" max="360"/></label>
+        <label class="inputContainerInnerElements">m2_toe: <input v-model="m2_toe" type="checkbox"/></label>
+        <label class="inputContainerInnerElements">m2_heel: <input v-model="m2_heel" type="checkbox"/></label>
+      </div>
+      <div class="inputContainerElements">
+        <label class="inputContainerInnerElements">w1_x: <input v-model="w1_x" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">w1_y: <input v-model="w1_y" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">w1_rotate: <input v-model="w1_rotate" type="number" step="1" min="0" max="360"/></label>
+        <label class="inputContainerInnerElements">w1_toe: <input v-model="w1_toe" type="checkbox"/></label>
+        <label class="inputContainerInnerElements">w1_heel: <input v-model="w1_heel" type="checkbox"/></label>
+      </div>
+      <div class="inputContainerElements">
+        <label class="inputContainerInnerElements">w2_x: <input v-model="w2_x" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">w2_y: <input v-model="w2_y" type="number" step="0.1" min="0" max="1"/></label>
+        <label class="inputContainerInnerElements">w2_rotate: <input v-model="w2_rotate" type="number" step="1" min="0" max="360"/></label>
+        <label class="inputContainerInnerElements">w2_toe: <input v-model="w2_toe" type="checkbox"/></label>
+        <label class="inputContainerInnerElements">w2_heel: <input v-model="w2_heel" type="checkbox"/></label>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+#inputContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 998;
-}
+  flex-direction: row;
+  justify-content: space-around;
 
-.popup {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
-  width: 300px;
-  max-height: 90vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+  .inputContainerElements {
+    display: flex;
+    flex-direction: column;
+    width: 17%;
 
-.popup label {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.popup input[type="range"] {
-  accent-color: #007bff;
-}
-
-.popup input[type="number"],
-.popup input[type="range"] {
-  margin-top: 0.25rem;
+    .inputContainerInnerElements {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }
 </style>
