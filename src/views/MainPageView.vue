@@ -3,18 +3,31 @@ import searchIcon from '@/assets/icons/searchIcon.svg';
 import {type DanceTypes} from '@/tsTypes/interfacesMainPageView.ts';
 import {nextTick, onBeforeMount, onMounted, type Ref, ref} from "vue";
 
-const url = import.meta.env.VITE_ServerIP + "/dance/dances"
+const url = import.meta.env.VITE_ServerIP +"/dance/dances"
 let dances = ref<DanceTypes[]>([]);
+let stepsequences = ref<[]>([]);
+
+const isStepsequence = ref(false);
 
 onMounted(() => {
   fetch(url)
       .then(response => response.json())
-      .then((data: DanceTypes) => {
+      .then((data: DanceTypes[]) => {
         dances.value = data;
-        console.log(dances);
         nextTick();
       });
 })
+
+function getStepsequencesFromDance(danceId : number) {
+
+  fetch(import.meta.env.VITE_ServerIP+`/stepsequence/dance/${danceId}`)
+      .then(response => response.json())
+      .then((data) => {
+        stepsequences.value = data;
+        nextTick();
+        isStepsequence.value = true;
+      });
+}
 </script>
 
 <template>
@@ -26,9 +39,10 @@ onMounted(() => {
       </button>
     </div>
   </div>
-  <div id="danceContainerMainPage">
+  <button v-if="isStepsequence" @click="isStepsequence = false">Zurück</button>
+  <div v-if="!isStepsequence" class="danceContainerMainPage">
     <div class="danceInfoOverContainerMainPage" v-for="dance in dances">
-      <div class="danceInfoContainerMainPage">
+      <div @click="getStepsequencesFromDance(dance.id)" class="danceInfoContainerMainPage">
         <h3>{{ dance.name }}</h3>
         <div>
           <span v-for="index in dance.difficulty" key="index">x</span>
@@ -37,6 +51,18 @@ onMounted(() => {
       </div>
     </div>
   </div>
+  <div v-else class="danceContainerMainPage">
+    <div class="danceInfoOverContainerMainPage" v-for="stepsequence in stepsequences">
+      <div @click="" class="danceInfoContainerMainPage">
+        <h3>{{ stepsequence.name }}</h3>
+        <div>
+          <span v-for="index in stepsequence.difficulty" key="index">x</span>
+        </div>
+        <span>{{ stepsequence.dance.defaultBPM }} BPM</span>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -82,23 +108,27 @@ onMounted(() => {
   }
 }
 
-#danceContainerMainPage {
+.danceContainerMainPage {
   padding: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
 
+
   .danceInfoOverContainerMainPage {
     padding: 20px;
     .danceInfoContainerMainPage {
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
       align-items: center;
+      justify-content: center;
 
       border-radius: 20px;
       width: 20vh;
       height: 20vh;
+      font-size: 1.7vh;
       color: $colorWhite;
       background-color: $colorVioletLight;
     }
