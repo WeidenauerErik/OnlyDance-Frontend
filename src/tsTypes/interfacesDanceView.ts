@@ -5,6 +5,7 @@ export interface Step {
     steps: FootStep[];
 }
 
+
 export interface FootStep {
     howquick: number;
     m1_x: number;
@@ -36,7 +37,7 @@ export interface FootAnimationProps {
     danceStepLength: number;
     autoplayVariable: string;
     danceName: string;
-    showEditBtn: boolean;
+    isInEditMode: boolean;
 }
 
 export interface FootAnimationEmits {
@@ -45,6 +46,5 @@ export interface FootAnimationEmits {
     'autoplayBtn': void;
     'nextBtn': void;
     'backToEndBtn': void;
-    'showEdits': void;
-    'editStepSequenceName': void;
+    'addStep': void;
 }

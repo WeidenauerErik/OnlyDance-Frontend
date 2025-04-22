@@ -111,6 +111,7 @@ onUnmounted(() => {
 
     <div id="infoCounterDisplayCounter">
       <span id="infoCounterDisplay"> {{ props.danceStepCounter + 1 }} / {{ props.danceStepLength }}</span>
+      <button @click="$emit('addStep')">add</button>
     </div>
 
     <div id="manLeftFoot" class="foot" ref="manLeftFoot">
@@ -155,8 +156,7 @@ onUnmounted(() => {
 
     <div class="controlsContainerElement">
 
-      <h1 id="infoTextDisplay" v-if="!props.showEditBtn"> {{ props.danceName }}</h1>
-      <input type="text" v-if="props.showEditBtn" placeholder="Tanzschrittname" @input="editStepSequenceName">
+      <h1 id="infoTextDisplay"> {{ props.danceName }}</h1>
 
     </div>
 
