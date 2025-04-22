@@ -18,8 +18,6 @@ const danceStepCounter = ref<number>(0);
 const danceStepLength = ref<number>(1);
 const danceName = ref<string>("Walzer");
 
-const showInputs = ref<boolean>(false);
-
 const howQuick = ref<Number>(1);
 
 const m1_x = ref<number>(0.4);
@@ -196,6 +194,11 @@ const refreshInputFields = () => {
   w2_toe.value = steps.value[danceStepCounter.value].w2_toe;
   w2_heel.value = steps.value[danceStepCounter.value].w2_heel;
 }
+
+
+const submitJSON = () => {
+  console.log(JSON.stringify(steps.value));
+}
 </script>
 
 <template>
@@ -260,6 +263,8 @@ const refreshInputFields = () => {
       </div>
     </div>
   </div>
+
+  <button @click="submitJSON">Submit für Andi</button>
 </template>
 
 <style scoped>
