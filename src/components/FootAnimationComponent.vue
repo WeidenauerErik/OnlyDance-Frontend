@@ -104,14 +104,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  {{stepSequenceName}}
+  {{ stepSequenceName }}
   <span v-if="props.loaderIsVisible">Loading ...</span>
 
   <div id="morphDiv" ref="morphDivRef" v-if="!props.loaderIsVisible">
 
     <div id="infoCounterDisplayCounter">
       <span id="infoCounterDisplay"> {{ props.danceStepCounter + 1 }} / {{ props.danceStepLength }}</span>
-      <button @click="$emit('addStep')">add</button>
     </div>
 
     <div id="manLeftFoot" class="foot" ref="manLeftFoot">
@@ -196,8 +195,11 @@ onUnmounted(() => {
 
     <div class="controlsContainerElement" id="controlsSettingsContainer">
 
-      <img :src="settingsIcon" alt="Einstellungen" id="settingsIcon">
-
+      <img :src="settingsIcon" alt="Einstellungen" id="settingsIcon" v-if="!props.isInEditMode">
+      <div v-else>
+        <button @click="$emit('addStep')" >add new step</button>
+        <button @click="$emit('removeStep')">remove step</button>
+      </div>
     </div>
   </div>
 </template>

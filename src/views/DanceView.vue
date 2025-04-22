@@ -98,7 +98,19 @@ const backToEndBtn = () => {
 
 <template>
 
-<FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter' :danceStepLength='danceStepLength' :currentStep='currentStep || null' :autoplayVariable='autoplayVariable' :danceName='danceName' @backToBeginBtn="backToBeginBtn" @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn" @backToEndBtn="backToEndBtn"/>
+<FootAnimationComponent
+    :loaderIsVisible='loaderIsVisible'
+    :danceStepCounter='danceStepCounter'
+    :danceStepLength='danceStepLength'
+    :currentStep='currentStep || null'
+    :autoplayVariable='autoplayVariable'
+    :danceName='danceName'
+    :isInEditMode='false'
+    @backToBeginBtn="backToBeginBtn"
+    @backBtn="backBtn"
+    @AutoplayBtn="AutoplayBtn"
+    @nextBtn="nextBtn"
+    @backToEndBtn="backToEndBtn"/>
 
 </template>
 

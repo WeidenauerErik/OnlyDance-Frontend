@@ -25,14 +25,14 @@ const howQuick = ref<Number>(1);
 const m1_x = ref<number>(0.4);
 const m1_y = ref<number>(0.6)
 const m1_rotate = ref<number>(0);
-const m1_toe = ref<true>(true);
-const m1_heel = ref<true>(true);
+const m1_toe = ref<boolean>(true);
+const m1_heel = ref<boolean>(true);
 
 const m2_x = ref<number>(0.6);
 const m2_y = ref<number>(0.6)
 const m2_rotate = ref<number>(0);
-const m2_toe = ref<true>(true);
-const m2_heel = ref<true>(true);
+const m2_toe = ref<boolean>(true);
+const m2_heel = ref<boolean>(true);
 
 const w1_x = ref<number>(0.4);
 const w1_y = ref<number>(0.3)
@@ -165,8 +165,15 @@ const addStep = () => {
   refreshInputFields();
 };
 
+const removeStep = () => {
+  if (steps.value.length !== 1) {
+    steps.value.splice(danceStepCounter.value-1,1);
+    danceStepLength.value = steps.value.length;
+    danceStepCounter.value = steps.value.length-1;
+  }
+}
+
 const refreshInputFields = () => {
-    console.log(steps.value)
   howQuick.value = steps.value[danceStepCounter.value].howquick;
   m1_x.value = steps.value[danceStepCounter.value].m1_x;
   m1_y.value = steps.value[danceStepCounter.value].m1_y;
@@ -192,12 +199,21 @@ const refreshInputFields = () => {
 </script>
 
 <template>
-  <FootAnimationComponent :loaderIsVisible='loaderIsVisible' :danceStepCounter='danceStepCounter'
-                          :danceStepLength='danceStepLength' :currentStep='currentStep || null'
-                          :autoplayVariable='autoplayVariable' :danceName='danceName' :isInEditMode='true'
+  <FootAnimationComponent :loaderIsVisible='loaderIsVisible'
+                          :danceStepCounter='danceStepCounter'
+                          :danceStepLength='danceStepLength'
+                          :currentStep='currentStep || null'
+                          :autoplayVariable='autoplayVariable'
+                          :danceName='danceName'
+                          :isInEditMode='true'
                           @backToBeginBtn="backToBeginBtn"
-                          @backBtn="backBtn" @AutoplayBtn="AutoplayBtn" @nextBtn="nextBtn"
-                          @backToEndBtn="backToEndBtn" @addStep="addStep"/>
+                          @backBtn="backBtn"
+                          @AutoplayBtn="AutoplayBtn"
+                          @nextBtn="nextBtn"
+                          @backToEndBtn="backToEndBtn"
+                          @addStep="addStep"
+                          @removeStep="removeStep"
+  />
 
   <div class="overlay">
     <label>howQuick: <input v-model="howQuick" type="number" step="0.1"/></label>

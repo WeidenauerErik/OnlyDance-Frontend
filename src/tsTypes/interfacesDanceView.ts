@@ -2,7 +2,7 @@ export interface Step {
     badge: string;
     dance: string;
     name: string;
-    steps: FootStep[];
+    steps: FootStep[] | null;
 }
 
 
@@ -47,4 +47,5 @@ export interface FootAnimationEmits {
     'nextBtn': void;
     'backToEndBtn': void;
     'addStep': void;
+    'removeStep': void;
 }
