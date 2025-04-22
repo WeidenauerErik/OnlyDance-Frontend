@@ -6,8 +6,12 @@ import type {FootStep, Step} from "@/tsTypes/interfacesDanceView.ts";
 import playIcon from "@/assets/icons/playIcon.svg";
 import pauseIcon from "@/assets/icons/pauseIcon.svg";
 
+
+const props = defineProps({
+  id : String
+});
 //const url = import.meta.env.VITE_ServerIP + '/stepsequence/get/1';
-const url = '/ServerFiles/basicStepSequence.json';
+const url =  import.meta.env.VITE_ServerIP +`/stepsequence/get/${props.id}`
 
 const steps = ref<Step>();
 const autoplayActive = ref<boolean>(false);
@@ -25,6 +29,7 @@ onMounted(() => {
   fetch(url)
       .then((res) => res.json())
       .then((data: Step) => {
+        console.log(data);
         steps.value = data.steps;
         danceStepLength.value = data.steps.length;
         danceStepCounter.value = 0;

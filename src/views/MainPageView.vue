@@ -2,6 +2,7 @@
 import searchIcon from '@/assets/icons/searchIcon.svg';
 import {type DanceTypes} from '@/tsTypes/interfacesMainPageView.ts';
 import {nextTick, onBeforeMount, onMounted, type Ref, ref} from "vue";
+import router from "@/router";
 
 const url = import.meta.env.VITE_ServerIP +"/dance/dances"
 let dances = ref<DanceTypes[]>([]);
@@ -28,6 +29,10 @@ function getStepsequencesFromDance(danceId : number) {
         isStepsequence.value = true;
       });
 }
+
+function openDanceView (stepsequenceId : string){
+  router.push(`/danceView/${stepsequenceId}`)
+}
 </script>
 
 <template>
@@ -53,7 +58,7 @@ function getStepsequencesFromDance(danceId : number) {
   </div>
   <div v-else class="danceContainerMainPage">
     <div class="danceInfoOverContainerMainPage" v-for="stepsequence in stepsequences">
-      <div @click="" class="danceInfoContainerMainPage">
+      <div @click="openDanceView(stepsequence.id)" class="danceInfoContainerMainPage">
         <h3>{{ stepsequence.name }}</h3>
         <div>
           <span v-for="index in stepsequence.difficulty" key="index">x</span>
