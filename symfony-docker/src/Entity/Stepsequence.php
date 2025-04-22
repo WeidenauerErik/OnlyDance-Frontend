@@ -21,6 +21,10 @@ class Stepsequence
     #[Groups(['stepsequence:read'])]
     private ?string $name = null;
 
+    #[ORM\Column(nullable: true)]
+    #[Groups(['stepsequence:read'])]
+    private ?int $difficulty = null;
+
     /**
      * @var Collection<int, Checklist>
      */
@@ -36,12 +40,16 @@ class Stepsequence
     #[Groups(['stepsequence:read'])]
     private ?Dance $dance = null;
 
+
+
     /**
      * @var Collection<int, Step>
      */
     #[ORM\OneToMany(targetEntity: Step::class, mappedBy: 'stepsequence')]
     #[Groups(['stepsequence:read'])]
     private Collection $howquick;
+
+
 
     public function __construct()
     {
@@ -140,6 +148,18 @@ class Stepsequence
                 $howquick->setStepsequence(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?int
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?int $difficulty): static
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }

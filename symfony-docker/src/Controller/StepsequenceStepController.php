@@ -115,4 +115,15 @@ class StepsequenceStepController extends AbstractController
         return JsonResponse::fromJsonString($response);
     }
 
+    #[Route('/stepsequence/dance/{id}', name: 'app_step_get_by_dance', methods: ['GET'])]
+    public function getStepsequencesByDance(SerializerInterface $serializer, Dance $dance) :JsonResponse
+    {
+        $response = $serializer->serialize(
+            $dance->getStepsequences(),
+            'json',
+            ['groups' => ['stepsequence:read']]
+        );
+        return JsonResponse::fromJsonString($response);
+    }
+
 }
