@@ -44,9 +44,10 @@ const router = createRouter({
       component: ChecklistView
     },
     {
-      path: '/danceview',
+      path: '/danceview/:id',
       name: 'DanceView',
-      component: DanceView
+      component: DanceView,
+      props: true
     },
     {
       path: '/imprint',

@@ -189,6 +189,7 @@ const refreshInputFields = () => {
   w2_toe.value = steps.value[danceStepCounter.value].w2_toe;
   w2_heel.value = steps.value[danceStepCounter.value].w2_heel;
 }
+
 </script>
 
 <template>
