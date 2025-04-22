@@ -47,14 +47,14 @@ class Stepsequence
      */
     #[ORM\OneToMany(targetEntity: Step::class, mappedBy: 'stepsequence')]
     #[Groups(['stepsequence:read'])]
-    private Collection $howquick;
+    private Collection $steps;
 
 
 
     public function __construct()
     {
         $this->checklists = new ArrayCollection();
-        $this->howquick = new ArrayCollection();
+        $this->steps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,15 +125,15 @@ class Stepsequence
     /**
      * @return Collection<int, Step>
      */
-    public function getHowquick(): Collection
+    public function getSteps(): Collection
     {
-        return $this->howquick;
+        return $this->steps;
     }
 
     public function addHowquick(Step $howquick): static
     {
-        if (!$this->howquick->contains($howquick)) {
-            $this->howquick->add($howquick);
+        if (!$this->steps->contains($howquick)) {
+            $this->steps->add($howquick);
             $howquick->setStepsequence($this);
         }
 
@@ -142,7 +142,7 @@ class Stepsequence
 
     public function removeHowquick(Step $howquick): static
     {
-        if ($this->howquick->removeElement($howquick)) {
+        if ($this->steps->removeElement($howquick)) {
             // set the owning side to null (unless already changed)
             if ($howquick->getStepsequence() === $this) {
                 $howquick->setStepsequence(null);
