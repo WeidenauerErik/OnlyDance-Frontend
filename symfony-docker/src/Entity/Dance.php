@@ -22,6 +22,7 @@ class Dance
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['stepsequence:read'])]
     private ?string $tact = null;
 
     #[ORM\Column]

@@ -23,7 +23,7 @@ class StepsequenceStepController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        if (!isset($data['dance_id'], $data['badge_id'], $data['name'], $data['steps'])) {
+        if (!isset($data['dance_id'], $data['badge_id'], $data['name'], $data['steps'],$data["difficulty"])) {
             return new JsonResponse(['error' => 'Missing required fields'], 400);
         }
 
@@ -37,6 +37,7 @@ class StepsequenceStepController extends AbstractController
         $stepsequence->setDance($dance);
         $stepsequence->setBadge($badge);
         $stepsequence->setName($data["name"]);
+        $stepsequence->setDifficulty($data["difficulty"]);
 
 
         foreach ($data['steps'] as $stepData) {
