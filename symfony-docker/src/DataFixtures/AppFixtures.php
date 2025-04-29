@@ -52,6 +52,8 @@ class AppFixtures extends Fixture
             $manager->persist($badge);
         }
 
+        $manager->flush();
+
         $dataDir = __DIR__ . '/data/stepsequences'; // Pfad zum JSON-Ordner
         $finder = new Finder();
         if (!is_dir($dataDir)) {
