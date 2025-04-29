@@ -54,11 +54,21 @@ class AppFixtures extends Fixture
 
         $dataDir = __DIR__ . '/data/stepsequences'; // Pfad zum JSON-Ordner
         $finder = new Finder();
+        if (!is_dir($dataDir)) {
+            throw new \RuntimeException("Directory not found: " . $dataDir);
+        }
         $finder->files()->in($dataDir)->name('*.json');
+
+        if ($finder->count() === 0) {
+            throw new \RuntimeException("No JSON files found in: " . $dataDir);
+        }
 
         foreach ($finder as $file) {
             $content = $file->getContents();
             $data = json_decode($content, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \RuntimeException("JSON decode error in file " . $file->getFilename() . ": " . json_last_error_msg());
+            }
 
             if (!isset($data['dance_id'], $data['badge_id'], $data['name'], $data['steps'], $data["difficulty"])) {
                 continue;
@@ -68,7 +78,8 @@ class AppFixtures extends Fixture
             $badge = $manager->getRepository(Badge::class)->find($data['badge_id']);
 
             if (!$dance || !$badge) {
-                continue; // Wenn Verknüpfung fehlt, überspringen
+                throw new \RuntimeException("Dance not found with ID: " . $data['dance_id']."or Badge not found with ID:" . $data['badge_id']);
+
             }
 
             $stepsequence = new Stepsequence();

@@ -14,6 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -34,6 +35,33 @@ class UserController extends AbstractController
         return JsonResponse::fromJsonString($response);
 
     }
+
+
+    #[Route("/register",name: 'app_user_register', methods: ['Post'])]
+    public function register( ValidatorInterface $validator,Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        if (!isset($data['email'],$data['name'], $data['password'])) {
+            return new JsonResponse(['error' => 'Missing required fields'], 400);
+        }
+
+        $user = new User();
+
+        $user->setEmail($data["email"]);
+        $user->setName($data["name"]);
+        $user->setPassword($passwordHasher->hashPassword($user,$data["email"]));
+
+
+        if($validator->validate($user)){
+            return new JsonResponse(["error" => ["message" => "validation failed, please enter non existing Email", "type" => "email"]],400);
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return new JsonResponse(["status" => "user successfully created"]);
+    }
+
 
 
     #[Route(name: 'app_user_index', methods: ['GET'])]
