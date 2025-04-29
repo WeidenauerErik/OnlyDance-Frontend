@@ -43,6 +43,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Checklist::class, mappedBy: 'user_id')]
     private Collection $checklists;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user:read','checklist:read'])]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->checklists = new ArrayCollection();
@@ -149,6 +153,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $checklist->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

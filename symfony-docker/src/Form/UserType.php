@@ -32,8 +32,11 @@ class UserType extends AbstractType
                 )
             )
             */
-            ->add('password')
-        ;
+            ->add("name")
+            ->add('password', null, [
+                'required' => false,  // Make password optional
+                'empty_data' => '',    // Set empty value if field is empty
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

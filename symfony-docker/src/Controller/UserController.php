@@ -81,19 +81,25 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
 
+        $password = $user->getPassword();
         $user->setPassword("");
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($plainPassword = $user->getPassword()) {
+            if ($user->getPassword()!= "" && $plainPassword = $user->getPassword()) {
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
                 $user->setPassword($hashedPassword);
+            }
+            else {
+                // Restore the original password if no new password was provided
+                $user->setPassword($password);
             }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,

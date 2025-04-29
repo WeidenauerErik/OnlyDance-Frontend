@@ -14,15 +14,15 @@ class Stepsequence
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['stepsequence:read'])]
+    #[Groups(['stepsequence:read','checklist:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['stepsequence:read'])]
+    #[Groups(['stepsequence:read','checklist:read'])]
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['stepsequence:read'])]
+    #[Groups(['stepsequence:read','checklist:read'])]
     private ?int $difficulty = null;
 
     /**
@@ -32,7 +32,7 @@ class Stepsequence
     private Collection $checklists;
 
     #[ORM\ManyToOne(inversedBy: 'stepsequences')]
-    #[Groups(['stepsequence:read'])]
+    #[Groups(['stepsequence:read','checklist:read'])]
     private ?Badge $badge = null;
 
     #[ORM\ManyToOne(inversedBy: 'stepsequences')]

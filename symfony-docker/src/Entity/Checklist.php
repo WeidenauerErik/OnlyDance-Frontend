@@ -6,6 +6,7 @@ use App\Repository\ChecklistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ChecklistRepository::class)]
 class Checklist
@@ -13,16 +14,24 @@ class Checklist
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['checklist:read'])]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['checklist:read'])]
+    private ?string $name = null;
     #[ORM\ManyToOne(inversedBy: 'checklists')]
+    #[Groups(['checklist:read'])]
     private ?User $user_id = null;
 
     /**
      * @var Collection<int, Stepsequence>
      */
     #[ORM\ManyToMany(targetEntity: Stepsequence::class, mappedBy: 'checklists')]
+    #[Groups(['checklist:read'])]
     private Collection $stepsequences;
+
+
 
     public function __construct()
     {
@@ -69,6 +78,18 @@ class Checklist
         if ($this->stepsequences->removeElement($stepsequence)) {
             $stepsequence->removeChecklist($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
